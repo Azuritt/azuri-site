@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Azuri Élan — Product</title>
+  <meta name="description" content="Azuri Élan slim fit polo. Crafted for what lasts.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Azuri home"><img src="assets/azuri-logo.png" alt="Azuri"></a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="index.html#collection">Collection</a>
+      <a href="index.html#story">Our Story</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <button class="bag" aria-label="Shopping bag">Bag <span>0</span></button>
+  </header>
+
+  <main class="product-page">
+    <a class="back-link" href="index.html#collection">← Back to Collection</a>
+    <section class="product-detail" aria-label="Product details">
+      <div>
+        <img id="productImage" class="product-detail-image" src="assets/elan-ivory.png" alt="Azuri Élan in Ivory">
+      </div>
+      <div class="product-detail-copy">
+        <h1 id="productTitle" class="product-detail-title">Élan slim fit polo- Ivory</h1>
+        <div class="product-brand">Azuri</div>
+        <p class="product-detail-price">$500.00</p>
+        <p class="product-description">A refined ribbed polo designed with a clean slim fit and an understated Azuri finish. Made to sit close to the body while keeping the look polished and effortless.</p>
+
+        <div class="size-heading-row">
+          <p class="size-label">Select size</p>
+          <details class="size-guide">
+            <summary>- Size &amp; Fit Guide</summary>
+            <div class="size-guide-panel">
+              <table class="size-guide-table">
+                <thead>
+                  <tr><th>Measurement</th><th>S</th><th>M</th><th>L</th></tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">½ Chest</th><td>49 cm</td><td>51 cm</td><td>53 cm</td></tr>
+                  <tr><th scope="row">Length</th><td>67 cm</td><td>69 cm</td><td>71 cm</td></tr>
+                  <tr><th scope="row">Shoulder</th><td>42.5 cm</td><td>44 cm</td><td>45.5 cm</td></tr>
+                  <tr><th scope="row">Sleeve length</th><td>22.5 cm</td><td>23 cm</td><td>23.5 cm</td></tr>
+                  <tr><th scope="row">Sleeve opening</th><td>16 cm</td><td>16.5 cm</td><td>17 cm</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+        </div>
+        <div class="size-options" role="group" aria-label="Select size: S, M, or L">
+          <button class="size-option selected" type="button">S</button>
+          <button class="size-option" type="button">M</button>
+          <button class="size-option" type="button">L</button>
+        </div>
+        <div class="product-accordions" aria-label="Additional product information">
+          <details class="product-info-accordion">
+            <summary>
+              <span class="accordion-label"><span class="accordion-icon tag-icon" aria-hidden="true"></span>PRODUCT DETAILS</span>
+              <span class="accordion-arrow" aria-hidden="true">→</span>
+            </summary>
+            <div class="product-details-content">
+              <p><strong>Fit:</strong> Slim fit</p>
+              <p><strong>Fabric:</strong> 97% combed long-staple cotton, 3% elastane</p>
+              <p><strong>Weight:</strong> 250 GSM</p>
+              <p><strong>Texture:</strong> Fine 1×1 rib</p>
+              <p><strong>Collar:</strong> Ribbed polo collar</p>
+              <p><strong>Sleeves:</strong> Short sleeves with ribbed cuffs</p>
+              <p><strong>Branding:</strong> Subtle embroidered Azuri logo</p>
+              <p><strong>Sizes:</strong> S, M, L</p>
+              <p><strong>Care:</strong> Machine wash cold. Wash with similar colours. Do not bleach. Lay flat or hang to dry.</p>
+            </div>
+          </details>
+
+          <details class="product-info-accordion">
+            <summary>
+              <span class="accordion-label"><span class="accordion-icon truck-icon" aria-hidden="true"></span>SHIPPING AND RETURNS</span>
+              <span class="accordion-arrow" aria-hidden="true">→</span>
+            </summary>
+            <div class="product-details-content">Ships within Trinidad &amp; Tobago. Eligible returns are accepted within 30 days of delivery. <a href="shipping.html">View full Shipping &amp; Returns policy.</a></div>
+          </details>
+
+          <details class="product-info-accordion">
+            <summary>
+              <span class="accordion-label"><span class="accordion-icon review-icon" aria-hidden="true"></span>PRODUCT REVIEWS</span>
+              <span class="accordion-arrow" aria-hidden="true">→</span>
+            </summary>
+            <div class="product-details-content"></div>
+          </details>
+        </div>
+        <button class="add-to-bag" type="button">Add to bag</button>
+        <p class="product-note">Select your size, then add the polo to your bag.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact"><div><div class="footer-brand">Azuri</div><div class="footer-links"><a href="index.html#collection">Collection</a><a href="index.html#story">Our Story</a><a href="shipping.html">Shipping &amp; Returns</a><a href="mailto:azuriclothingtt@gmail.com">Email</a><a href="tel:+18684348695">(868) 434-8695</a></div></div><p>© <span id="year"></span> Azuri. All rights reserved.</p></footer>
+  <script src="cart.js"></script>
+  <script src="product.js"></script>
+</body>
+</html>
