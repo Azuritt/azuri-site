@@ -73,8 +73,8 @@
     try {
       const orderNumber = `AZ-${Date.now()}`;
 
-      // Generate the order ID ourselves
-      const orderId = crypto.randomUUID();
+      // orders.id is BIGINT, so use a numeric ID
+      const orderId = Date.now();
 
       // Create the order
       const orderResponse = await fetch(`${SUPABASE_URL}/rest/v1/orders`, {
@@ -103,7 +103,7 @@
 
       if (!orderResponse.ok) {
         const error = await orderResponse.text();
-        throw new Error(error);
+        throw new Error(`Orders table: ${error}`);
       }
 
       // Create the order items
@@ -129,7 +129,7 @@
 
       if (!itemsResponse.ok) {
         const error = await itemsResponse.text();
-        throw new Error(error);
+        throw new Error(`Order items table: ${error}`);
       }
 
       // Clear cart after successful order
@@ -144,9 +144,7 @@
     } catch (error) {
       console.error('Order submission failed:', error);
 
-      alert(
-        'We could not submit your order right now. Please try again.'
-      );
+      alert(`Order error:\n\n${error.message}`);
 
       placeOrderButton.disabled = false;
       placeOrderButton.textContent = 'Place order';
