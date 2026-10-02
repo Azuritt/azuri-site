@@ -87,7 +87,7 @@
         body: JSON.stringify({
           id: orderId,
           order_number: orderNumber,
-          customer_order: email,
+          customer_email: email,
           first_name: firstName,
           last_name: lastName,
           address: address,
