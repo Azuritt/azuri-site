@@ -73,16 +73,19 @@
     try {
       const orderNumber = `AZ-${Date.now()}`;
 
+      // Generate the order ID ourselves
+      const orderId = crypto.randomUUID();
+
       // Create the order
       const orderResponse = await fetch(`${SUPABASE_URL}/rest/v1/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'apikey': SUPABASE_KEY,
-          'Authorization': `Bearer ${SUPABASE_KEY}`,
-          'Prefer': 'return=representation'
+          'Authorization': `Bearer ${SUPABASE_KEY}`
         },
         body: JSON.stringify({
+          id: orderId,
           order_number: orderNumber,
           customer_order: email,
           first_name: firstName,
@@ -103,12 +106,9 @@
         throw new Error(error);
       }
 
-      const orders = await orderResponse.json();
-      const order = orders[0];
-
       // Create the order items
       const orderItems = cart.map(item => ({
-        order_id: order.id,
+        order_id: orderId,
         product_id: item.id,
         product_name: item.name,
         color: item.color || '',
