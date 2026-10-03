@@ -19,6 +19,9 @@ alter table public.orders enable row level security;
 create function public.is_azuri_admin() returns boolean language sql stable set search_path='' as $$
  select coalesce((auth.jwt()->'app_metadata'->>'azuri_admin')='true',false)
 $$;
+grant usage on schema public to anon,authenticated;
+revoke all on function public.is_azuri_admin() from public;
+grant execute on function public.is_azuri_admin() to authenticated;
 create policy "Public product catalogue" on public.products for select to anon,authenticated using(true);
 create policy "Admin product updates" on public.products for update to authenticated using(public.is_azuri_admin()) with check(public.is_azuri_admin());
 create policy "Admin orders" on public.orders for select to authenticated using(public.is_azuri_admin());
