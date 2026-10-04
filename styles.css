@@ -83,3 +83,14 @@ footer small{font-size:9px;line-height:1.8;letter-spacing:.12em;padding-top:20px
 .policy>p{font-size:14px}
 #toast{max-width:calc(100vw - 32px);width:max-content;font-size:12px;text-align:center}
 }
+
+/* Mobile campaign copy sits on the uncropped hero photograph. */
+@media(max-width:750px){
+.hero{padding-bottom:82px}
+.hero>img{filter:brightness(.58)}
+.hero-text{position:absolute;inset:0 0 82px;left:0;top:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 5%;color:#fffaf1}
+.hero-text>.eyebrow{font-size:8px;letter-spacing:.18em;margin:0 0 12px}
+.hero h1{font-size:clamp(28px,8vw,52px);line-height:1.04;margin:0 0 12px}
+.hero-text>p:not(.eyebrow){font-size:clamp(20px,5.3vw,30px)!important;margin:0!important;color:#fffaf1;line-height:1.15!important}
+.hero .button.light{position:absolute;top:100%;margin-top:18px;font-size:10px;padding:13px 28px}
+}
