@@ -102,3 +102,5 @@ footer small{font-size:9px;line-height:1.8;letter-spacing:.12em;padding-top:20px
 .hero-text>p:not(.eyebrow){font-size:clamp(17px,4.6vw,25px)!important}
 .hero .button.light{left:6%}
 }
+
+@media(max-width:750px){.hero .button.light{left:50%;transform:translateX(-50%);white-space:nowrap}}
