@@ -94,3 +94,11 @@ footer small{font-size:9px;line-height:1.8;letter-spacing:.12em;padding-top:20px
 .hero-text>p:not(.eyebrow){font-size:clamp(20px,5.3vw,30px)!important;margin:0!important;color:#fffaf1;line-height:1.15!important}
 .hero .button.light{position:absolute;top:100%;margin-top:18px;font-size:10px;padding:13px 28px}
 }
+
+@media(max-width:750px){
+.hero-text{align-items:flex-start;text-align:left;padding:18px 6%}
+.hero-text>.eyebrow{font-size:7px;letter-spacing:.16em;margin-bottom:10px}
+.hero h1{font-size:clamp(24px,6.8vw,44px);margin-bottom:10px}
+.hero-text>p:not(.eyebrow){font-size:clamp(17px,4.6vw,25px)!important}
+.hero .button.light{left:6%}
+}
