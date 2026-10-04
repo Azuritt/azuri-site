@@ -117,3 +117,5 @@ footer small{font-size:9px;line-height:1.8;letter-spacing:.12em;padding-top:20px
 .hero .button.light{background:transparent;color:#34251c;border-color:#34251c}
 .hero .button.light:hover{background:#34251c;color:#fffaf1}
 }
+
+@media(max-width:750px){#collection .section-title h2 img{transform:none;margin-left:auto!important;margin-right:auto!important}}
