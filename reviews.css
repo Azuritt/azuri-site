@@ -3,3 +3,12 @@
 .reviews-close{display:flex;align-items:center;justify-content:center;padding:0;line-height:1}
 .review-rating-options label{background:transparent;color:#c3b19b}
 .review-rating-options label:has(input:checked),.review-rating-options label:has(~ label input:checked){background:transparent;color:#806047;border-color:#806047}
+
+#reviewsDialog .reviews-close{display:flex;align-items:center;justify-content:center;box-sizing:border-box;flex:0 0 40px;width:40px;min-width:40px;max-width:40px;height:40px;min-height:40px;padding:0;margin:0;line-height:1;appearance:none;border-radius:0}
+#reviewsDialog .reviews-close svg{display:block;flex:none;width:18px;height:18px}
+.reviews-stars{display:inline-flex;align-items:center;gap:4px;letter-spacing:0;line-height:1}
+.review-star-icon{display:block;width:18px;height:18px;flex:none}
+.reviews-empty-star .review-star-icon{width:34px;height:34px;margin:0 auto}
+.review-rating-options label{box-sizing:border-box;flex:0 0 44px;width:44px;height:44px;padding:0;line-height:1}
+.review-rating-options label>span{display:flex;align-items:center;justify-content:center}
+.review-rating-options .review-star-icon{width:22px;height:22px}

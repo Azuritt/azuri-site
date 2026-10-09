@@ -2,7 +2,8 @@
 (() => {
   const byId=id=>document.getElementById(id);
   const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const stars=n=>'★'.repeat(n)+'☆'.repeat(5-n);
+  const star=filled=>`<svg class="review-star-icon" viewBox="0 0 24 24" fill="${filled?'currentColor':'none'}" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 2.78 5.63L21 9.54l-4.5 4.38 1.06 6.19L12 17.19l-5.56 2.92 1.06-6.19L3 9.54l6.22-.91L12 3Z"/></svg>`;
+  const stars=n=>Array.from({length:5},(_,i)=>star(i<n)).join('');
   const date=s=>new Date(s).toLocaleDateString('en-TT',{month:'short',day:'numeric',year:'numeric'});
   const request=async(path,options={},admin=false)=>{
     const cfg=window.AZURI_CONFIG||{};
@@ -35,11 +36,11 @@
         if(run!==generation)return;
         total=summary.count;
         byId('reviewAverage').textContent=total?Number(summary.average).toFixed(1):'—';
-        byId('reviewAverageStars').textContent=total?stars(Math.round(summary.average)):'☆☆☆☆☆';
+        byId('reviewAverageStars').innerHTML=stars(total?Math.round(summary.average):0);
         byId('reviewAverageStars').setAttribute('aria-label',total?`${summary.average} out of 5 stars`:'No ratings yet');
         byId('reviewCount').textContent=total?`${total} customer review${total===1?'':'s'}`:'No ratings yet';
         ['five','four','three','two','one'].forEach((key,index)=>{const value=Number(summary[key]);byId('reviewBar'+(5-index)).style.width=(total?value/total*100:0)+'%';byId('reviewBarCount'+(5-index)).textContent=value;});
-        const empty='<div class="reviews-empty"><span class="reviews-empty-star" aria-hidden="true">☆</span><h3>The first word is yours.</h3><p>No reviews yet. Share how your Azuri piece feels, fits and wears.</p></div>';
+        const empty='<div class="reviews-empty"><span class="reviews-empty-star" aria-hidden="true"><svg class="review-star-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 2.78 5.63L21 9.54l-4.5 4.38 1.06 6.19L12 17.19l-5.56 2.92 1.06-6.19L3 9.54l6.22-.91L12 3Z"/></svg></span><h3>The first word is yours.</h3><p>No reviews yet. Share how your Azuri piece feels, fits and wears.</p></div>';
         if(reset)list.innerHTML=rows.length?rows.map(card).join(''):empty;else list.insertAdjacentHTML('beforeend',rows.map(card).join(''));
         byId('reviewMore').hidden=(page+1)*10>=total;
       }catch{if(run===generation){if(reset)list.innerHTML='';status.textContent='Reviews could not be loaded. Close and reopen to try again.';}}
