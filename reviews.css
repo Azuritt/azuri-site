@@ -12,3 +12,7 @@
 .review-rating-options label{box-sizing:border-box;flex:0 0 44px;width:44px;height:44px;padding:0;line-height:1}
 .review-rating-options label>span{display:flex;align-items:center;justify-content:center}
 .review-rating-options .review-star-icon{width:22px;height:22px}
+
+#reviewsDialog .reviews-close,#reviewsAccordion summary{-webkit-tap-highlight-color:transparent}
+#reviewsDialog .reviews-close:focus,#reviewsAccordion summary:focus{outline:none;box-shadow:none}
+#reviewsDialog .reviews-close:focus-visible,#reviewsAccordion summary:focus-visible{outline:1px solid #806047;outline-offset:3px}
