@@ -1,0 +1,60 @@
+/* Azuri: considered movement, generous space, understated detail. */
+html{scroll-behavior:smooth;scroll-padding-top:110px}
+body:not(.admin-page){font-family:Inter,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+body:not(.admin-page)>header{position:sticky;top:0;z-index:20;background:rgba(248,245,238,.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid #472c1e18;transition:box-shadow .4s,background .4s}
+body.lux-scrolled>header{box-shadow:0 5px 24px #34251c08}
+body:not(.admin-page)>header nav a{position:relative;padding-block:12px;letter-spacing:.16em;font-size:10px}
+body:not(.admin-page)>header nav a::after{content:"";position:absolute;left:0;right:0;bottom:7px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .35s}
+body:not(.admin-page)>header nav a:hover::after,body:not(.admin-page)>header nav a:focus-visible::after{transform:scaleX(1)}
+body:not(.admin-page) #bag{font-size:10px;letter-spacing:.16em}
+.lux-home .hero h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;letter-spacing:-.025em}
+.lux-home .hero .eyebrow{font-weight:400;letter-spacing:.24em}
+.lux-home .hero .button.light{padding:18px 30px;font-size:9px;letter-spacing:.2em;transition:background .4s,color .4s,border-color .4s}
+.lux-home .hero .button.light::after{content:"↗";display:inline-block;margin-left:22px;transition:transform .35s}
+.lux-home .hero .button.light:hover::after{transform:translate(3px,-3px)}
+.lux-home #collection{padding-top:105px;padding-bottom:100px}
+.lux-home .section-title{padding-bottom:28px;margin-bottom:42px;border-bottom:1px solid #472c1e25}
+.lux-home .section-title .eyebrow{font:9px Inter,Arial,sans-serif;letter-spacing:.23em;margin:0 0 34px;color:#806853}
+.lux-home .section-title>p{font:italic 22px 'Cormorant Garamond',Georgia,serif;color:#806853;margin:0 0 2px}
+.lux-home .products{gap:34px}
+.lux-home .product-card{display:block;min-width:0}
+.lux-home .product-card img{display:block;background:#eee9df;border:1px solid #472c1e0a;transition:transform .8s cubic-bezier(.2,.65,.3,1),background .8s,box-shadow .8s}
+.lux-home .product-meta{position:relative;padding-top:24px;padding-bottom:23px;border-bottom:1px solid #472c1e22}
+.lux-home .product-meta h3{font-size:36px;letter-spacing:-.015em;margin-bottom:10px}
+.lux-home .product-meta p{font-size:9px;letter-spacing:.16em;color:#8b7767}
+.lux-home .product-meta>span{font-size:11px;letter-spacing:.04em;margin-top:15px}
+.lux-home .product-meta::after{content:"↗";position:absolute;right:2px;bottom:22px;font-size:20px;color:#806853;transition:transform .4s,color .4s}
+.lux-signature{padding:40px 6%;border-top:1px solid #472c1e20;border-bottom:1px solid #472c1e20;display:flex;justify-content:space-between;align-items:center;gap:24px;background:#f1ece2}
+.lux-signature span{font:9px Inter,Arial,sans-serif;letter-spacing:.2em;color:#806853;text-transform:uppercase}
+.lux-signature p{margin:0;font:italic 29px 'Cormorant Garamond',Georgia,serif;color:#472c1e}
+.lux-home .story{border-top:0;grid-template-columns:1.15fr 1fr;gap:12%;padding-top:115px;padding-bottom:115px}
+.lux-home .story h2{font:500 clamp(44px,5.4vw,76px)/1.04 'Cormorant Garamond',Georgia,serif;letter-spacing:-.025em;margin:0}
+.lux-home .story h2::before{content:"THE AZURI PHILOSOPHY";display:block;font:9px Inter,Arial,sans-serif;letter-spacing:.23em;color:#806853;margin-bottom:30px}
+.lux-home .story>div{font-size:13px;line-height:2.1;max-width:430px}
+.lux-home .story>div p+p{margin-top:24px}
+body:not(.admin-page)>footer{padding-top:80px;padding-bottom:30px;background:#352419;column-gap:12%}
+body:not(.admin-page)>footer a{font-size:11px;letter-spacing:.035em;width:fit-content;transition:color .3s;line-height:1.8}
+body:not(.admin-page)>footer a:hover{color:#d6b992}
+body:not(.admin-page)>footer small{font-size:8px;letter-spacing:.18em;border-color:#f8f5ee25;padding-top:25px;margin-top:30px}
+.product-page .product-section{padding-top:35px;padding-bottom:100px}
+.product-page .product-photo{background:#eee9df;border:1px solid #472c1e0a;overflow:hidden}
+.product-page .product-photo img{transition:transform 1s cubic-bezier(.2,.65,.3,1)}
+.product-page .product-copy{padding-top:28px}
+.product-page .product-copy h1{font-size:clamp(36px,3.5vw,52px);letter-spacing:-.02em;line-height:1.1}
+.product-page .product-brand{font:9px Inter,Arial,sans-serif;text-transform:uppercase;letter-spacing:.25em;color:#8b7767;margin-top:18px;margin-bottom:25px}
+.product-page .description{font-size:12px;line-height:2;color:#806f60}
+.product-page .product-accordions summary{color:#472c1e;letter-spacing:.13em;font-size:10px}
+.product-page .detail-arrow{font-size:20px;transition:transform .35s}
+.product-page #sizes button,.product-page #colors button{transition:background .3s,color .3s,border-color .3s}
+.product-page #addBag,.checkout-page #placeOrder{transition:background .35s,box-shadow .35s}
+.product-page #addBag:hover:not(:disabled),.checkout-page #placeOrder:hover:not(:disabled){background:#64422d;box-shadow:0 6px 20px #472c1e12}
+#bagDialog .bag-bottom .button{transition:background .35s}
+.lux-reveal{transition:opacity .9s ease,transform .9s cubic-bezier(.2,.65,.3,1)}
+.lux-reveal-pending{opacity:0;transform:translateY(22px)}
+.lux-reveal-visible{opacity:1;transform:none}
+@media(hover:hover) and (pointer:fine){.lux-home .product-card:hover img{transform:translateY(-5px);background:#e9e2d5;box-shadow:0 18px 28px -22px #472c1e50}.lux-home .product-card:hover .product-meta::after{transform:translate(3px,-3px);color:#472c1e}.product-page .product-photo:hover img{transform:scale(1.025)}}
+@media(min-width:751px){body:not(.admin-page)>header{height:88px;padding-inline:6%}.lux-home .hero>picture>img{animation:lux-arrive 1.8s cubic-bezier(.2,.65,.3,1) both}.lux-home .hero-text{animation:lux-copy 1.1s .15s ease both}}
+@keyframes lux-arrive{from{transform:scale(1.025)}to{transform:scale(1)}}
+@keyframes lux-copy{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media(max-width:750px){html{scroll-padding-top:110px}body:not(.admin-page)>header nav a{font-size:9px;letter-spacing:.1em}.lux-home .hero h1{letter-spacing:-.015em}.lux-home .hero .button.light{padding:14px 24px;font-size:9px}.lux-home .hero .button.light::after{margin-left:18px}.lux-home #collection{padding-top:60px;padding-bottom:55px}.lux-home .section-title{padding-bottom:25px;margin-bottom:30px}.lux-home .section-title .eyebrow{margin-bottom:30px}.lux-home .section-title>p{font-size:21px;margin:24px 0 0}.lux-home .products{gap:36px}.lux-home .product-meta h3{font-size:34px}.lux-home .product-meta{padding-top:20px;padding-bottom:21px}.lux-signature{padding:30px 6%;display:block}.lux-signature span{font-size:8px}.lux-signature p{font-size:27px;margin-top:10px}.lux-home .story{display:block;padding-top:65px;padding-bottom:65px}.lux-home .story h2{font-size:48px;margin-bottom:30px}.lux-home .story h2::before{font-size:8px;margin-bottom:22px}.lux-home .story>div{font-size:12px;line-height:2;max-width:none}.product-page .product-section{padding-top:22px;padding-bottom:55px}.product-page .product-copy{padding-top:0}.product-page .product-copy h1{font-size:38px}.product-page .product-brand{margin-top:15px;margin-bottom:22px}body:not(.admin-page)>footer{padding-top:55px;text-align:center}body:not(.admin-page)>footer a{margin-inline:auto}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.lux-reveal,.lux-reveal-pending,.lux-reveal-visible{opacity:1;transform:none;transition:none}.lux-home .hero>picture>img,.lux-home .hero-text{animation:none}*{animation:none!important}}
