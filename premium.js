@@ -25,7 +25,7 @@
     element.classList.add('lux-reveal', 'lux-reveal-pending');
     reveal.observe(element);
   };
-  document.querySelectorAll('.lux-home .section-title,.lux-signature,.lux-home .story h2,.lux-home .story > div,.product-card').forEach(prepare);
+  document.querySelectorAll('.lux-signature,.lux-home .story h2,.lux-home .story > div,.product-card').forEach(prepare);
   const products = document.getElementById('products');
   if (products) new MutationObserver(() => products.querySelectorAll('.product-card').forEach(prepare)).observe(products, { childList: true });
   reduceMotion.addEventListener('change', () => {
