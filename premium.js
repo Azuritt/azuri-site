@@ -20,10 +20,10 @@
   const prepare = element => {
     if (element.dataset.luxReveal) return;
     element.dataset.luxReveal = 'true';
-    // Never hide content already in view; animation is progressive enhancement.
-    if (element.getBoundingClientRect().top < window.innerHeight - 20) return;
+    // Skip content already passed; flush the starting frame before observing.
+    if (element.getBoundingClientRect().bottom <= 0) return;
     element.classList.add('lux-reveal', 'lux-reveal-pending');
-    reveal.observe(element);
+    requestAnimationFrame(() => requestAnimationFrame(() => reveal.observe(element)));
   };
   document.querySelectorAll('.lux-signature,.lux-home .story h2,.lux-home .story > div,.product-card').forEach(prepare);
   const products = document.getElementById('products');
