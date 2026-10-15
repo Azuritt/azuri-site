@@ -11,7 +11,7 @@
  const standalone=window.matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
  const ios=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
  const supported='serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window&&window.isSecureContext;
- let registration, publicKey, busy=false, initialized=false;
+ let registration, publicKey, currentSubscription, busy=false, initialized=false;
  function setState(message,on=false){status.textContent=message;panel.dataset.enabled=String(on);enable.hidden=on;test.hidden=!on;disable.hidden=!on;}
  function lock(value){busy=value;[enable,test,disable].forEach(b=>b.disabled=value);}
  async function request(action,data={}){
@@ -59,31 +59,38 @@
    enable.disabled=true;setState('Add Azuri Orders to your Home Screen to connect this device.');return;
   }
   if(!supported){enable.disabled=true;setState('Push notifications are unavailable in this browser. Use an up-to-date supported browser.');return;}
-  if(Notification.permission==='default'){setState('Connect this device to receive new order alerts.');enable.disabled=false;return;}
-  setState('Checking notification connection…');
+  if(Notification.permission==='denied'){setState('Notifications are blocked. Allow them in iPhone Settings → Notifications → Azuri Orders, then reopen the app.');enable.disabled=true;return;}
+  setState('Preparing this device for notifications…');
   lock(true);
   try{
-   await prepare();
+   await bounded(prepare(),'Setup could not finish. Tap Retry setup to reconnect.',20000);
    const sub=await bounded(registration.pushManager.getSubscription(),'Could not read this device’s notification settings. Reopen Azuri Orders and try again.');
+   currentSubscription=sub;
    const saved=sub?await request('status',{endpoint:sub.endpoint}):{enabled:false};
+   enable.textContent='Enable on this device';
    if(Notification.permission==='denied'){enable.disabled=true;setState('Notifications are blocked. Allow them in your browser or device settings, then reload.');}
    else setState(saved.enabled?'Order alerts are enabled on this device.':'Connect this device to receive new order alerts.',saved.enabled);
-  }catch(e){setState(e.message);initialized=false;}
+  }catch(e){setState(e.message);enable.textContent='Retry setup';initialized=false;}
   finally{lock(false);if(Notification.permission==='denied')enable.disabled=true;}
  }
  enable.addEventListener('click',async()=>{
   if(busy)return;
-  // Ask during the tap gesture, before network or service-worker awaits (Safari).
-  const permission=Notification.requestPermission();lock(true);status.textContent='Waiting for notification permission…';
+  if(!registration?.active||!publicKey){
+   initialized=false;await initialize();
+   if(registration?.active&&publicKey)status.textContent='Device ready. Tap Enable on this device to allow notifications.';
+   return;
+  }
+  lock(true);status.textContent='Allow notifications in the iPhone prompt…';
   try{
-   if(await permission!=='granted')throw Error('Notifications were not allowed. You can enable them in your browser settings.');
-   status.textContent='Connecting this device…';
-   await prepare();
-   let sub=await bounded(registration.pushManager.getSubscription(),'Could not read this device’s notification settings. Reopen Azuri Orders and try again.');
-   if(!sub)sub=await bounded(registration.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:keyBytes(publicKey)}),'Your device did not finish connecting. Check your connection and try again.',20000);
+   // Safari requires subscribe itself to run directly in the tap handler.
+   // Registration and VAPID configuration are prepared before the tap.
+   const subscriptionPromise=currentSubscription?Promise.resolve(currentSubscription):registration.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:keyBytes(publicKey)});
+   const sub=await bounded(subscriptionPromise,'iPhone did not finish the permission request. Check Settings → Notifications → Azuri Orders, then try again.',20000);
+   currentSubscription=sub;
+   status.textContent='Saving this device’s notification connection…';
    await request('subscribe',{endpoint:sub.endpoint,subscription:sub.toJSON(),label:ios?'iPhone / iPad':/Mac/.test(navigator.platform)?'Mac':'Desktop / Android'});
    setState('Connected. Use “Send test notification” to check the alert and sound.',true);
-  }catch(e){status.textContent=e.message;}
+  }catch(e){status.textContent=e.name==='NotAllowedError'?'Notifications were not allowed. Check your device notification settings, then try again.':e.message;}
   finally{lock(false);}
  });
  test.addEventListener('click',async()=>{
@@ -104,7 +111,7 @@
   let serverError;
   try{await request('unsubscribe',{endpoint:sub.endpoint});}catch(e){serverError=e;}
   // Unsubscribe locally even if the admin session expired or the connection failed.
-  const removed=await sub.unsubscribe();
+  const removed=await sub.unsubscribe();currentSubscription=null;
   if(serverError&&!removed)throw serverError;
   const alerts=await reg.getNotifications();alerts.forEach(n=>n.close());
  }
