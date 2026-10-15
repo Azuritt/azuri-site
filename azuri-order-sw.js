@@ -1,5 +1,5 @@
 'use strict';
-self.addEventListener('install',()=>self.skipWaiting());
+self.addEventListener('install',event=>event.waitUntil(self.skipWaiting()));
 self.addEventListener('activate',event=>event.waitUntil(self.clients.claim()));
 // Deliberately no fetch handler or offline cache: admin and customer data stay live.
 self.addEventListener('push',event=>{

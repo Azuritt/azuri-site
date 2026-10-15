@@ -23,8 +23,24 @@
   return result;
  }
  function keyBytes(key){return Uint8Array.from(atob(key.replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0));}
+ async function bounded(promise,message,ms=15000){
+  let timer;
+  try{return await Promise.race([promise,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error(message)),ms);})]);}
+  finally{clearTimeout(timer);}
+ }
  async function prepare(){
-  if(!registration){await navigator.serviceWorker.register('/azuri-order-sw.js',{scope:'/',updateViaCache:'none'});registration=await navigator.serviceWorker.ready;}
+  if(!registration?.active){
+   const reg=await bounded(navigator.serviceWorker.register('/azuri-order-sw.js',{scope:'/',updateViaCache:'none'}),'Device setup timed out. Close and reopen Azuri Orders, then try again.');
+   if(!reg.active){
+    await bounded(new Promise((resolve,reject)=>{
+     const worker=reg.installing||reg.waiting;
+     if(!worker){reject(Error('Notification setup could not start. Close and reopen Azuri Orders.'));return;}
+     const changed=()=>{if(worker.state==='activated'){worker.removeEventListener('statechange',changed);resolve();}else if(worker.state==='redundant'){worker.removeEventListener('statechange',changed);reject(Error('Notification setup failed. Please reload and try again.'));}};
+     worker.addEventListener('statechange',changed);changed();
+    }),'Device setup timed out. Close and reopen Azuri Orders, then try again.');
+   }
+   registration=reg;
+  }
   if(!publicKey)publicKey=(await request('config')).publicKey;
   return registration;
  }
@@ -43,10 +59,12 @@
    enable.disabled=true;setState('Add Azuri Orders to your Home Screen to connect this device.');return;
   }
   if(!supported){enable.disabled=true;setState('Push notifications are unavailable in this browser. Use an up-to-date supported browser.');return;}
+  if(Notification.permission==='default'){setState('Connect this device to receive new order alerts.');enable.disabled=false;return;}
+  setState('Checking notification connection…');
   lock(true);
   try{
    await prepare();
-   const sub=await registration.pushManager.getSubscription();
+   const sub=await bounded(registration.pushManager.getSubscription(),'Could not read this device’s notification settings. Reopen Azuri Orders and try again.');
    const saved=sub?await request('status',{endpoint:sub.endpoint}):{enabled:false};
    if(Notification.permission==='denied'){enable.disabled=true;setState('Notifications are blocked. Allow them in your browser or device settings, then reload.');}
    else setState(saved.enabled?'Order alerts are enabled on this device.':'Connect this device to receive new order alerts.',saved.enabled);
@@ -56,12 +74,13 @@
  enable.addEventListener('click',async()=>{
   if(busy)return;
   // Ask during the tap gesture, before network or service-worker awaits (Safari).
-  const permission=Notification.requestPermission();lock(true);
+  const permission=Notification.requestPermission();lock(true);status.textContent='Waiting for notification permission…';
   try{
    if(await permission!=='granted')throw Error('Notifications were not allowed. You can enable them in your browser settings.');
+   status.textContent='Connecting this device…';
    await prepare();
-   let sub=await registration.pushManager.getSubscription();
-   if(!sub)sub=await registration.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:keyBytes(publicKey)});
+   let sub=await bounded(registration.pushManager.getSubscription(),'Could not read this device’s notification settings. Reopen Azuri Orders and try again.');
+   if(!sub)sub=await bounded(registration.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:keyBytes(publicKey)}),'Your device did not finish connecting. Check your connection and try again.',20000);
    await request('subscribe',{endpoint:sub.endpoint,subscription:sub.toJSON(),label:ios?'iPhone / iPad':/Mac/.test(navigator.platform)?'Mac':'Desktop / Android'});
    setState('Connected. Use “Send test notification” to check the alert and sound.',true);
   }catch(e){status.textContent=e.message;}
@@ -70,7 +89,7 @@
  test.addEventListener('click',async()=>{
   if(busy)return;lock(true);
   try{
-   await prepare();const sub=await registration.pushManager.getSubscription();
+   await prepare();const sub=await bounded(registration.pushManager.getSubscription(),'Could not read this device’s notification settings. Reopen Azuri Orders and try again.');
    if(!sub)throw Error('Enable notifications again on this device.');
    await request('test',{endpoint:sub.endpoint});
    status.textContent='Test accepted for delivery. Check your notifications; sound follows your device and Focus settings.';
