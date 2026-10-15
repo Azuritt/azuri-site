@@ -1,0 +1,12 @@
+.push-panel{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:24px 28px;margin:0 0 28px;background:#fffdf9;border:1px solid #ddd2c3;border-left:3px solid #a68b67}
+.push-panel h2{font:500 28px 'Cormorant Garamond',Georgia,serif;margin:0 0 8px;color:#472c1e}
+.push-panel p{font-size:12px;line-height:1.8;margin:0;color:#806f60;max-width:580px}
+.push-panel .push-kicker{font:9px Inter,Arial,sans-serif;letter-spacing:.17em;color:#947d63;margin-bottom:8px;text-transform:uppercase}
+.push-panel .push-actions{display:flex;gap:10px;flex-wrap:wrap;flex-shrink:0;max-width:330px}
+.push-panel button{font:10px Inter,Arial,sans-serif;padding:13px 16px;letter-spacing:.04em;min-height:44px;border-color:#d4c5b2}
+.push-panel #enablePush,.push-panel #testPush{background:#472c1e;color:#f8f5ee;border-color:#472c1e}
+.push-panel #pushInstallHint{margin-top:10px;color:#472c1e}
+.push-panel #pushStatus{margin-top:8px}
+.push-panel[data-enabled="true"]{border-left-color:#58705a}
+.push-panel[hidden],.push-panel button[hidden]{display:none}
+@media(max-width:850px){.push-panel{align-items:flex-start;flex-direction:column;padding:22px;gap:16px}.push-panel .push-actions{max-width:100%;width:100%}.push-panel h2{font-size:27px}.push-panel button{flex:1}}
