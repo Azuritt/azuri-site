@@ -1,4 +1,3 @@
-import { logoImage, blackElanImage } from "./email-assets.ts";
 const isBlackElan = (item: Record<string, unknown>) => {
   const name = String(item.product_name || "Elan").normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
   return String(item.color).trim().toLowerCase() === "black" && /^elan(?:\s+i|\s+1)?$/i.test(name);
@@ -172,7 +171,7 @@ Deno.serve(async (request: Request) => {
 <table class="email-outer" bgcolor="#f4eee3" role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4eee3;"><tr><td class="email-shell" align="center" style="padding:28px 12px;">
 <table class="email-card" bgcolor="#faf6ed" role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;background:#faf6ed;color:#472c1e;border:1px solid #ded3c3;">
 <tr><td class="email-brand email-header" bgcolor="#472c1e" align="center" style="padding:30px 28px 24px;border-bottom:1px solid #ded3c3;background:#472c1e;color:#f4eee3;">
-<a href="https://azuri.fit"><img class="email-header-logo" src="cid:azuri-logo" alt="Azuri" width="190" style="display:block;width:190px;max-width:100%;height:auto;border:0;"></a>
+<a href="https://azuri.fit"><img class="email-header-logo" src="https://azuri.fit/assets/email-logo.png" alt="Azuri" width="190" style="display:block;width:190px;max-width:100%;height:auto;border:0;"></a>
 <p class="email-header-tagline" style="color:#f4eee3;margin:14px 0 0;font:9px Arial,sans-serif;letter-spacing:2px;text-transform:uppercase;">For the quietly ambitious.</p>
 </td></tr>
 <tr><td class="email-content" style="padding:32px 28px;">
@@ -185,7 +184,7 @@ Deno.serve(async (request: Request) => {
 <p style="margin:0;padding:20px 0;border-top:1px solid #d9cbbb;font:10px Arial,sans-serif;letter-spacing:2px;">ORDER SUMMARY</p>
 ${order.items.map((item: Record<string, unknown>) => `
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:0 0 24px;border-bottom:1px solid #ded3c3;">
-${isBlackElan(item) ? '<img src="cid:elan-black" alt="Black Élan polo" width="440" style="display:block;width:100%;max-width:440px;height:auto;margin:0 auto 22px;border:0;">' : ""}
+${isBlackElan(item) ? '<img src="https://azuri.fit/assets/email-elan-black.jpg" alt="Black Élan polo" width="440" style="display:block;width:100%;max-width:440px;height:auto;margin:0 auto 22px;border:0;">' : ""}
 <p style="margin:0 0 10px;font:normal 23px Georgia,serif;">${escapeHtml(productLabel(item))}</p>
 <p class="email-muted" style="margin:0 0 8px;font:13px/1.7 Arial,sans-serif;color:#756451;">${escapeHtml(item.color)} &nbsp; / &nbsp; Size ${escapeHtml(item.size)}</p>
 <p class="email-muted" style="margin:0;font:12px/1.7 Arial,sans-serif;color:#76614e;">Quantity ${escapeHtml(item.qty)}</p>
@@ -227,10 +226,6 @@ ${order.items.map((item: Record<string, unknown>) => `<tr><td class="email-muted
         subject: "Azuri — Your order request has been received",
         html,
         text,
-        attachments: [
-          { filename: "azuri-logo.png", content: logoImage, content_id: "azuri-logo" },
-          ...(order.items.some(isBlackElan) ? [{ filename: "elan-black.jpeg", content: blackElanImage, content_id: "elan-black" }] : []),
-        ],
       }),
     });
 
