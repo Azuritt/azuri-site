@@ -45,26 +45,35 @@ function saveBag(){localStorage.setItem('azuriBagV2',JSON.stringify(cart));rende
 function subtotal(){return cart.reduce((n,i)=>n+products.find(p=>p.id===i.id).price*i.qty,0);}
 function itemMarkup(i,controls=false){const p=products.find(p=>p.id===i.id);if(!controls)return `<div class="bag-item"><img src="${esc(p.image)}" alt="Élan ${esc(p.color)}"><div><h3>Élan · ${esc(p.color)}</h3><p>Size ${esc(i.size)} · ${money(p.price)}</p><p>Quantity ${i.qty} · ${money(p.price*i.qty)}</p></div></div>`;return `<article class="bag-item"><img src="${esc(p.image)}" alt="Élan ${esc(p.color)}"><div class="bag-item-copy"><h3>Élan slim fit polo– ${esc(p.color)}</h3><p class="bag-size">Size ${esc(i.size)}</p><div class="bag-item-line"><span>${money(p.price*i.qty)}</span><div class="bag-quantity"><button data-change="-1" data-id="${i.id}" data-size="${i.size}" aria-label="Decrease quantity of ${esc(p.color)} size ${i.size}">−</button><span aria-live="polite">${i.qty}</span><button data-change="1" data-id="${i.id}" data-size="${i.size}" aria-label="Increase quantity of ${esc(p.color)} size ${i.size}">+</button></div></div><button class="bag-remove" data-remove="${i.id}" data-size="${i.size}">Remove</button></div></article>`;}
 
-let deliveryOptions=[],checkoutSubmitting=false,checkoutStockReady=false;
-const selectedDelivery=()=>deliveryOptions.find(option=>option.id===$('deliveryArea')?.value);
+let deliveryLocations=[],checkoutSubmitting=false,checkoutStockReady=false;
+const normalizeDeliveryTown=value=>String(value||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').replace(/\bsaint\b/g,'st').replace(/\bmount\b/g,'mt').trim();
+function selectedDelivery(){
+ const city=normalizeDeliveryTown($('deliveryCity')?.value),matches=new Map();
+ if(!city)return;
+ for(const place of deliveryLocations){
+  if([place.town,...place.aliases].some(name=>(' '+city+' ').includes(' '+normalizeDeliveryTown(name)+' ')))
+   matches.set(place.area_id,{id:place.area_id,label:place.label,fee:place.fee});
+ }
+ return matches.size===1?[...matches.values()][0]:undefined;
+}
 function renderDeliveryTotals(){
- if(!$('deliveryTotal')||!$('deliveryArea'))return;
- const option=selectedDelivery(),amount=subtotal();
+ if(!$('deliveryTotal')||!$('deliveryCity'))return;
+ const option=selectedDelivery(),amount=subtotal(),city=$('deliveryCity').value.trim();
  $('summarySubtotal').textContent=money(amount);
- $('deliveryTotal').textContent=option?money(option.fee):'Select delivery area';
+ $('deliveryTotal').textContent=option?money(option.fee):'Enter town / city';
  $('summaryTotal').textContent=option?money(amount+Number(option.fee)):'—';
- $('deliverySelection').textContent=option?option.label+' · '+money(option.fee):'Choose the area that includes your delivery address.';
+ $('deliverySelection').textContent=option?'Delivery to '+city+': '+money(option.fee)+'.':city&&deliveryLocations.length?'We couldn’t recognise this town. Choose a town suggestion, or contact Azuri for help.':'Delivery is calculated automatically from your town or city.';
  $('placeOrder').disabled=!connected||!cart.length||!option||!checkoutStockReady||checkoutSubmitting;
 }
-async function loadDeliveryOptions(){
- const select=$('deliveryArea');if(!select||!connected)return;
+async function loadDeliveryLocations(){
+ if(!$('deliveryCity')||!connected)return;
  try{
-  const options=await api('/rest/v1/rpc/delivery_options');
-  if(!Array.isArray(options)||!options.length||options.some(o=>!o.id||!o.label||!Number.isFinite(Number(o.fee))||Number(o.fee)<0))throw Error('Delivery fees could not be loaded. Please refresh checkout.');
-  deliveryOptions=options;
-  select.innerHTML='<option value="" disabled selected>Select your delivery area</option>'+options.map(o=>'<option value="'+esc(o.id)+'">'+esc(o.label)+' — '+money(o.fee)+'</option>').join('');
-  select.disabled=false;renderDeliveryTotals();
- }catch(error){$('checkoutStatus').textContent='Delivery fees could not be loaded. Please refresh checkout or contact Azuri.';select.disabled=true;renderDeliveryTotals();}
+  const locations=await api('/rest/v1/rpc/delivery_locations');
+  if(!Array.isArray(locations)||!locations.length||locations.some(o=>!o.town||!o.area_id||!Array.isArray(o.aliases)||!Number.isFinite(Number(o.fee))||Number(o.fee)<0))throw Error('Invalid delivery locations');
+  deliveryLocations=locations;
+  $('deliveryTowns').innerHTML=locations.map(o=>'<option value="'+esc(o.town)+'"></option>').join('');
+  renderDeliveryTotals();
+ }catch(error){$('checkoutStatus').textContent='Delivery fees could not be loaded. Please refresh checkout or contact Azuri.';renderDeliveryTotals();}
 }
 
 function renderBag(){$('count').textContent=cart.reduce((s,i)=>s+i.qty,0);$('bagItems').innerHTML=cart.length?cart.map(i=>itemMarkup(i,true)).join(''):'<p>Your bag is empty.</p>';$('bagTotal').textContent=money(subtotal());$('checkoutLink').hidden=!cart.length;if($('summaryItems')){$('summaryItems').innerHTML=cart.length?cart.map(i=>itemMarkup(i)).join(''):'<p>Your bag is empty. <a href="index.html#collection">Explore Élan I</a>.</p>';$('summaryTotal').textContent=money(subtotal());renderDeliveryTotals();}}
@@ -93,11 +102,11 @@ function showOrderConfirmation(id,email){
 if($('orderForm')){
  $('placeOrder').disabled=true;
  if(!connected)$('checkoutStatus').textContent='Online ordering is not open yet. Please contact Azuri to enquire.';
- $('deliveryArea')?.addEventListener('change',()=>{ $('checkoutStatus').textContent='';renderDeliveryTotals(); });
- loadDeliveryOptions();
+  for(const event of ['input','change'])$('deliveryCity')?.addEventListener(event,()=>{ $('checkoutStatus').textContent='';renderDeliveryTotals(); });
+ loadDeliveryLocations();
  $('orderForm').onsubmit=async e=>{
   e.preventDefault();if(checkoutSubmitting||!cart.length)return;
-  if(!selectedDelivery()||!checkoutStockReady){$('checkoutStatus').textContent='Please select a delivery area and wait for checkout to finish loading.';return;}
+  if(!selectedDelivery()||!checkoutStockReady){$('checkoutStatus').textContent='Please enter a recognised delivery town or city and wait for checkout to finish loading.';return;}
   checkoutSubmitting=true;renderDeliveryTotals();$('checkoutStatus').textContent='';
   const customer=Object.fromEntries(new FormData(e.target));
   const submitted={subtotal:subtotal(),delivery_fee:Number(selectedDelivery().fee),total:subtotal()+Number(selectedDelivery().fee)};

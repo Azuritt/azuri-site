@@ -29,6 +29,107 @@ $delivery$;
 revoke all on function public.delivery_options() from public;
 grant execute on function public.delivery_options() to anon, authenticated;
 
+-- Calculate delivery from the customer's town/city. Client-selected rates are never trusted.
+create or replace function public.delivery_locations()
+returns table(town text, area_id text, label text, fee numeric, aliases text[])
+language sql immutable set search_path = ''
+as $locations$
+ select v.town, v.area_id, d.label, d.fee, v.aliases
+ from (values
+  ('St. Joseph','st-joseph',array[]::text[]),
+  ('Curepe','st-joseph',array[]::text[]),
+  ('St. Augustine','st-joseph',array[]::text[]),
+  ('Valsayn','st-joseph',array[]::text[]),
+  ('Mt. Hope','st-joseph',array[]::text[]),
+  ('Tunapuna','tunapuna-arima',array[]::text[]),
+  ('Tacarigua','tunapuna-arima',array[]::text[]),
+  ('Trincity','tunapuna-arima',array[]::text[]),
+  ('Arouca','tunapuna-arima',array[]::text[]),
+  ('Piarco','tunapuna-arima',array[]::text[]),
+  ('Arima','tunapuna-arima',array[]::text[]),
+  ('San Juan','san-juan',array[]::text[]),
+  ('Barataria','san-juan',array[]::text[]),
+  ('Morvant','san-juan',array[]::text[]),
+  ('Laventille','san-juan',array[]::text[]),
+  ('Port of Spain','port-of-spain',array[]::text[]),
+  ('St. Ann''s','port-of-spain',array['St Anns','St Ann','St. Anne''s']::text[]),
+  ('Woodbrook','port-of-spain',array[]::text[]),
+  ('St. James','port-of-spain',array[]::text[]),
+  ('Diego Martin','north-west',array[]::text[]),
+  ('Maraval','north-west',array[]::text[]),
+  ('Carenage','north-west',array[]::text[]),
+  ('Chaguaramas','north-west',array[]::text[]),
+  ('Chaguanas','central',array[]::text[]),
+  ('Cunupia','central',array[]::text[]),
+  ('Longdenville','central',array[]::text[]),
+  ('Carapichaima','central',array[]::text[]),
+  ('Couva','couva',array[]::text[]),
+  ('Freeport','couva',array[]::text[]),
+  ('Claxton Bay','couva',array[]::text[]),
+  ('Point Lisas','couva',array[]::text[]),
+  ('San Fernando','san-fernando',array[]::text[]),
+  ('Marabella','san-fernando',array[]::text[]),
+  ('Gasparillo','san-fernando',array[]::text[]),
+  ('La Romain','san-fernando',array[]::text[]),
+  ('Princes Town','princes-town',array[]::text[]),
+  ('Debe','princes-town',array[]::text[]),
+  ('Penal','princes-town',array[]::text[]),
+  ('Siparia','south-west',array[]::text[]),
+  ('Fyzabad','south-west',array[]::text[]),
+  ('Point Fortin','south-west',array[]::text[]),
+  ('La Brea','south-west',array[]::text[]),
+  ('Valencia','north-east',array[]::text[]),
+  ('Sangre Grande','north-east',array[]::text[]),
+  ('Cumuto','north-east',array[]::text[]),
+  ('Manzanilla','south-east',array[]::text[]),
+  ('Rio Claro','south-east',array[]::text[]),
+  ('Mayaro','south-east',array[]::text[]),
+  ('Toco','remote-coast',array[]::text[]),
+  ('Matelot','remote-coast',array[]::text[]),
+  ('Guayaguayare','remote-coast',array[]::text[]),
+  ('Blanchisseuse','remote-coast',array[]::text[]),
+  ('Cedros','remote',array[]::text[]),
+  ('Icacos','remote',array[]::text[]),
+  ('Other remote areas','remote',array[]::text[]),
+  ('Tobago','tobago',array[]::text[]),
+  ('Scarborough','tobago',array[]::text[]),
+  ('Crown Point','tobago',array[]::text[]),
+  ('Roxborough','tobago',array[]::text[]),
+  ('Plymouth','tobago',array[]::text[]),
+  ('Charlotteville','tobago',array[]::text[])
+ ) v(town,area_id,aliases)
+ join public.delivery_options() d on d.id=v.area_id;
+$locations$;
+revoke all on function public.delivery_locations() from public;
+grant execute on function public.delivery_locations() to anon, authenticated;
+
+create or replace function public.normalize_delivery_town(value text)
+returns text language sql immutable set search_path = ''
+as $normalize$
+ select trim(regexp_replace(regexp_replace(regexp_replace(
+  lower(coalesce(value,'')), '[^a-z0-9]+',' ','g'),
+  '\msaint\M','st','g'), '\mmount\M','mt','g'));
+$normalize$;
+revoke all on function public.normalize_delivery_town(text) from public;
+grant execute on function public.normalize_delivery_town(text) to anon, authenticated;
+
+create or replace function public.delivery_quote(city text)
+returns jsonb language sql immutable set search_path = ''
+as $quote$
+ with matches as (
+  select distinct l.area_id, l.label, l.fee
+  from public.delivery_locations() l
+  cross join lateral unnest(array[l.town]||l.aliases) a(name)
+  where strpos(' '||public.normalize_delivery_town(city)||' ',
+               ' '||public.normalize_delivery_town(a.name)||' ')>0
+ )
+ select case when count(*)=1 then
+  jsonb_build_object('id',min(area_id),'label',min(label),'fee',min(fee))
+ else null end from matches;
+$quote$;
+revoke all on function public.delivery_quote(text) from public;
+grant execute on function public.delivery_quote(text) to anon, authenticated;
+
 CREATE OR REPLACE FUNCTION public.place_order(request_id uuid, customer jsonb, bag jsonb)
  RETURNS jsonb
  LANGUAGE plpgsql
@@ -44,7 +145,7 @@ declare
   amount numeric := 0;
   order_items jsonb := '[]';
   existing uuid;
-  selected_delivery record;
+  selected_delivery jsonb;
 begin
   if request_id is null then raise exception 'Invalid order reference'; end if;
   perform pg_advisory_xact_lock(
@@ -91,10 +192,9 @@ begin
     raise exception 'Delivery is available in Trinidad and Tobago';
   end if;
 
-  select * into selected_delivery from public.delivery_options()
-  where id = customer ->> 'deliveryArea';
-  if not found then
-    raise exception 'Please select a delivery area at checkout. Refresh checkout if this option is missing.';
+  selected_delivery := public.delivery_quote(customer ->> 'city');
+  if selected_delivery is null then
+    raise exception 'Please enter a recognised delivery town or city. Choose a town suggestion, or contact Azuri for help.';
   end if;
 
   perform id from public.products
@@ -160,15 +260,16 @@ begin
     id, customer, items, total, delivery_fee, delivery_area
   )
   values (
-    request_id, customer - 'deliveryFee' - 'delivery_fee' - 'total', order_items,
-    amount + selected_delivery.fee, selected_delivery.fee, selected_delivery.label
+    request_id, jsonb_set(customer - 'deliveryFee' - 'delivery_fee' - 'total' - 'deliveryArea', '{deliveryArea}', selected_delivery->'id'), order_items,
+    amount + (selected_delivery ->> 'fee')::numeric, (selected_delivery ->> 'fee')::numeric, selected_delivery ->> 'label'
   );
 
   return jsonb_build_object('id', request_id, 'subtotal', amount,
-    'delivery_fee', selected_delivery.fee, 'total', amount + selected_delivery.fee);
+    'delivery_fee', (selected_delivery ->> 'fee')::numeric, 'total', amount + (selected_delivery ->> 'fee')::numeric);
 end;
 $function$;
 
+notify pgrst, 'reload schema';
+
 revoke all on function public.place_order(uuid,jsonb,jsonb) from public;
 grant execute on function public.place_order(uuid,jsonb,jsonb) to anon, authenticated;
-notify pgrst, 'reload schema';
