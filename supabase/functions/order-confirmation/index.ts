@@ -131,6 +131,11 @@ Deno.serve(async (request: Request) => {
       throw new Error("Order is missing customer email or items");
     }
 
+    const hasDelivery = order.delivery_fee !== null && order.delivery_fee !== undefined;
+    const deliveryFee = Number(order.delivery_fee || 0);
+    const merchandiseSubtotal = Number(order.total) - deliveryFee;
+    const deliveryText = hasDelivery ? money(deliveryFee) : "To be confirmed";
+
     const items = order.items.map(
       (item: Record<string, unknown>) =>
         `${item.qty} × ${productLabel(item)} · ` +
@@ -153,8 +158,9 @@ Deno.serve(async (request: Request) => {
       `Order reference: ${id}`,
       ...items,
       "",
-      `Merchandise subtotal: ${money(order.total)}`,
-      "Delivery charges are confirmed separately.",
+      `Merchandise subtotal: ${money(merchandiseSubtotal)}`,
+      hasDelivery ? `Delivery: ${deliveryText}` : "Delivery charges are confirmed separately.",
+      ...(hasDelivery ? [`Order total: ${money(order.total)}`, `Delivery area: ${order.delivery_area}`] : []),
       "",
       "Delivery address:",
       order.customer.address,
@@ -171,7 +177,7 @@ Deno.serve(async (request: Request) => {
 <table class="email-outer" bgcolor="#f4eee3" role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4eee3;"><tr><td class="email-shell" align="center" style="padding:28px 12px;">
 <table class="email-card" bgcolor="#faf6ed" role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;background:#faf6ed;color:#472c1e;border:1px solid #ded3c3;">
 <tr><td class="email-brand email-header" bgcolor="#472c1e" align="center" style="padding:30px 28px 24px;border-bottom:1px solid #ded3c3;background:#472c1e;color:#f4eee3;">
-<a href="https://azuri.fit"><img class="email-header-logo" src="https://azuri.fit/assets/email-logo.png" alt="Azuri" width="190" style="display:block;width:190px;max-width:100%;height:auto;border:0;"></a>
+<a href="https://shopazuri.com"><img class="email-header-logo" src="https://shopazuri.com/assets/email-logo.png" alt="Azuri" width="190" style="display:block;width:190px;max-width:100%;height:auto;border:0;"></a>
 <p class="email-header-tagline" style="color:#f4eee3;margin:14px 0 0;font:9px Arial,sans-serif;letter-spacing:2px;text-transform:uppercase;">For the quietly ambitious.</p>
 </td></tr>
 <tr><td class="email-content" style="padding:32px 28px;">
@@ -184,7 +190,7 @@ Deno.serve(async (request: Request) => {
 <p style="margin:0;padding:20px 0;border-top:1px solid #d9cbbb;font:10px Arial,sans-serif;letter-spacing:2px;">ORDER SUMMARY</p>
 ${order.items.map((item: Record<string, unknown>) => `
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:0 0 24px;border-bottom:1px solid #ded3c3;">
-${isBlackElan(item) ? '<img src="https://azuri.fit/assets/email-elan-black.jpg" alt="Black Élan polo" width="440" style="display:block;width:100%;max-width:440px;height:auto;margin:0 auto 22px;border:0;">' : ""}
+${isBlackElan(item) ? '<img src="https://shopazuri.com/assets/email-elan-black.jpg" alt="Black Élan polo" width="440" style="display:block;width:100%;max-width:440px;height:auto;margin:0 auto 22px;border:0;">' : ""}
 <p style="margin:0 0 10px;font:normal 23px Georgia,serif;">${escapeHtml(productLabel(item))}</p>
 <p class="email-muted" style="margin:0 0 8px;font:13px/1.7 Arial,sans-serif;color:#756451;">${escapeHtml(item.color)} &nbsp; / &nbsp; Size ${escapeHtml(item.size)}</p>
 <p class="email-muted" style="margin:0;font:12px/1.7 Arial,sans-serif;color:#76614e;">Quantity ${escapeHtml(item.qty)}</p>
@@ -194,21 +200,22 @@ ${isBlackElan(item) ? '<img src="https://azuri.fit/assets/email-elan-black.jpg" 
 <table class="email-delivery" bgcolor="#efe7da" role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#efe7da;"><tr><td class="email-delivery-content" style="padding:22px;color:#472c1e;">
 <p style="margin:0 0 12px;font:10px Arial,sans-serif;letter-spacing:2px;">DELIVERY INFORMATION</p>
 <p style="margin:0;font:13px/1.8 Arial,sans-serif;">${escapeHtml(order.customer.firstName)} ${escapeHtml(order.customer.lastName)}<br>${escapeHtml(order.customer.address)}<br>${escapeHtml(order.customer.city)}<br>Trinidad &amp; Tobago</p>
-<p class="email-muted" style="margin:14px 0 0;font:11px/1.7 Arial,sans-serif;color:#756451;">Delivery arrangements and charges will be confirmed with you.</p>
+<p class="email-muted" style="margin:14px 0 0;font:11px/1.7 Arial,sans-serif;color:#756451;">${hasDelivery ? `Delivery area: ${escapeHtml(order.delivery_area)}<br>Delivery fee: ${deliveryText}. We will contact you to arrange delivery.` : "Delivery arrangements and charges will be confirmed with you."}</p>
 </td></tr></table></td></tr>
 <tr><td class="email-content" style="padding:0 28px 28px;">
 <p style="margin:0;padding:20px 0;border-top:1px solid #d9cbbb;font:10px Arial,sans-serif;letter-spacing:2px;">TOTALS</p>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
 ${order.items.map((item: Record<string, unknown>) => `<tr><td class="email-muted" style="padding:0 0 12px;font:12px/1.7 Arial,sans-serif;color:#756451;">${escapeHtml(item.qty)} × ${escapeHtml(productLabel(item))} · ${escapeHtml(item.color)}</td><td align="right" style="padding:0 0 12px 10px;font:13px Arial,sans-serif;white-space:nowrap;">${money(Number(item.price) * Number(item.qty))}</td></tr>`).join("")}
-<tr><td style="padding:16px 0;border-top:1px solid #ded3c3;font:13px Arial,sans-serif;">Merchandise subtotal</td><td class="email-total" align="right" style="padding:16px 0;border-top:1px solid #ded3c3;font:normal 24px Georgia,serif;white-space:nowrap;">${money(order.total)}</td></tr>
-<tr><td class="email-muted" style="font:12px Arial,sans-serif;color:#76614e;">Delivery</td><td class="email-muted" align="right" style="font:12px Arial,sans-serif;color:#76614e;">To be confirmed</td></tr></table>
-<p class="email-muted" style="margin:18px 0 0;font:11px/1.7 Arial,sans-serif;color:#76614e;">No payment has been taken. Your final total will be confirmed once delivery charges are agreed.</p>
+<tr><td style="padding:16px 0;border-top:1px solid #ded3c3;font:13px Arial,sans-serif;">Merchandise subtotal</td><td class="email-total" align="right" style="padding:16px 0;border-top:1px solid #ded3c3;font:normal 24px Georgia,serif;white-space:nowrap;">${money(merchandiseSubtotal)}</td></tr>
+<tr><td class="email-muted" style="font:12px Arial,sans-serif;color:#76614e;">Delivery</td><td class="email-muted" align="right" style="font:12px Arial,sans-serif;color:#76614e;">${deliveryText}</td></tr>
+${hasDelivery ? `<tr><td style="padding:18px 0 0;border-top:1px solid #ded3c3;font:13px Arial,sans-serif;">Order total</td><td class="email-total" align="right" style="padding:18px 0 0;border-top:1px solid #ded3c3;font:normal 24px Georgia,serif;white-space:nowrap;">${money(order.total)}</td></tr>` : ""}</table>
+<p class="email-muted" style="margin:18px 0 0;font:11px/1.7 Arial,sans-serif;color:#76614e;">${hasDelivery ? "No payment has been taken. Your total includes delivery. Azuri will contact you to confirm payment and delivery arrangements." : "No payment has been taken. Your final total will be confirmed once delivery charges are agreed."}</p>
 <p class="email-muted email-reference" style="margin:24px 0 0;font:10px/1.8 Arial,sans-serif;color:#76614e;overflow-wrap:anywhere;">ORDER REFERENCE<br>${escapeHtml(id)}</p>
 </td></tr>
 <tr><td class="email-brand" bgcolor="#472c1e" align="center" style="padding:26px;background:#472c1e;color:#f4eee3;">
 <p style="margin:0 0 14px;font:italic 20px Georgia,serif;">Crafted for what lasts.</p>
 <p style="margin:0;font:12px/1.8 Arial,sans-serif;">A question about your order? Simply reply to this email.</p>
-<p style="margin:16px 0 0;font:10px Arial,sans-serif;letter-spacing:1px;"><a href="https://azuri.fit" style="color:#f4eee3;text-decoration:none;">AZURI.FIT</a> &nbsp; · &nbsp; TRINIDAD &amp; TOBAGO</p>
+<p style="margin:16px 0 0;font:10px Arial,sans-serif;letter-spacing:1px;"><a href="https://shopazuri.com" style="color:#f4eee3;text-decoration:none;">SHOPAZURI.COM</a> &nbsp; · &nbsp; TRINIDAD &amp; TOBAGO</p>
 </td></tr></table></td></tr></table></body></html>
     `;
 
