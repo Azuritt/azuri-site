@@ -1,0 +1,19 @@
+.azuri-bag-notice{position:fixed;z-index:30;top:70px;left:50%;transform:translateX(-50%);width:min(430px,calc(100vw - 24px));background:rgba(71,44,30,.97);color:#f8f5ee;border:1px solid #f8f5ee35;box-shadow:0 15px 45px #241a1533;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);animation:bag-notice-in .25s ease both}
+.azuri-bag-notice[hidden]{display:none}
+.azuri-bag-notice .bag-notice-content{position:relative;display:flex;align-items:center;gap:18px;padding:20px 44px 20px 22px}
+.azuri-bag-notice .bag-notice-image{display:block;width:58px;height:74px;flex:0 0 58px;object-fit:contain;background:#eee9df}
+.azuri-bag-notice .bag-notice-copy{min-width:0}
+.azuri-bag-notice .bag-notice-label{margin:0 0 8px;font:9px/1.4 Inter,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#e2d4c3}
+.azuri-bag-notice .bag-notice-name{margin:0 0 7px;font:400 20px/1.2 Georgia,serif;color:#f8f5ee;overflow-wrap:anywhere}
+.azuri-bag-notice .bag-notice-details{margin:0;font:11px/1.6 Inter,Arial,sans-serif;color:#f8f5ee}
+.azuri-bag-notice .bag-notice-close{position:absolute;top:8px;right:8px;display:flex;align-items:center;justify-content:center;min-height:36px;width:36px;padding:0;border:0;color:#f8f5ee}
+.azuri-bag-notice .bag-notice-close svg{width:16px;height:16px}
+.azuri-bag-notice .bag-notice-actions{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #f8f5ee35}
+.azuri-bag-notice .bag-notice-actions button,.azuri-bag-notice .bag-notice-actions a{display:flex;align-items:center;justify-content:center;min-height:48px;padding:13px 10px;margin:0;border:0;background:transparent;color:#f8f5ee;font:10px/1.4 Inter,Arial,sans-serif;letter-spacing:.14em;text-decoration:none;text-align:center;text-transform:uppercase}
+.azuri-bag-notice .bag-notice-actions a{background:#f8f5ee;color:#472c1e}
+.azuri-bag-notice .bag-notice-actions button:hover{background:#ffffff0d}
+.azuri-bag-notice .bag-notice-actions a:hover{background:#e9e0d3}
+.azuri-bag-notice button:focus-visible,.azuri-bag-notice a:focus-visible{outline:2px solid #b89a70;outline-offset:-4px}
+@keyframes bag-notice-in{from{opacity:0;translate:0 -8px}to{opacity:1;translate:0 0}}
+@media(max-width:750px){.azuri-bag-notice{top:68px}.azuri-bag-notice .bag-notice-content{gap:14px;padding:18px 40px 18px 18px}.azuri-bag-notice .bag-notice-name{font-size:18px}.azuri-bag-notice .bag-notice-label{font-size:8px}}
+@media(prefers-reduced-motion:reduce){.azuri-bag-notice{animation:none}}

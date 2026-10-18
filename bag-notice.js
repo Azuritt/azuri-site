@@ -1,0 +1,29 @@
+(() => {
+ 'use strict';
+ if(!document.getElementById('addBag'))return;
+ const panel=document.createElement('section');
+ panel.className='azuri-bag-notice';panel.hidden=true;
+ panel.setAttribute('aria-label','Added to your bag');
+ panel.innerHTML='<div class="bag-notice-content"><img class="bag-notice-image" alt="" width="58" height="74"><div class="bag-notice-copy" role="status" aria-live="polite" aria-atomic="true"><p class="bag-notice-label">Added to your bag</p><p class="bag-notice-name"></p><p class="bag-notice-details"></p></div><button class="bag-notice-close" type="button" aria-label="Dismiss added-to-bag notification"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="m5 5 14 14M5 19 19 5"/></svg></button></div><div class="bag-notice-actions"><button type="button">View Bag</button><a href="checkout.html">Checkout</a></div>';
+ document.body.append(panel);
+ const image=panel.querySelector('.bag-notice-image');
+ const name=panel.querySelector('.bag-notice-name');
+ const details=panel.querySelector('.bag-notice-details');
+ let timer;
+ const hide=()=>{clearTimeout(timer);panel.hidden=true;};
+ const schedule=()=>{clearTimeout(timer);timer=setTimeout(()=>{if(!panel.matches(':hover')&&!panel.contains(document.activeElement))hide();},10000);};
+ panel.querySelector('.bag-notice-close').addEventListener('click',()=>{const focused=panel.contains(document.activeElement);hide();if(focused)document.getElementById('addBag').focus();});
+ panel.querySelector('.bag-notice-actions button').addEventListener('click',()=>{hide();document.getElementById('bag').click();});
+ panel.addEventListener('mouseenter',()=>clearTimeout(timer));
+ panel.addEventListener('mouseleave',schedule);
+ panel.addEventListener('focusin',()=>clearTimeout(timer));
+ panel.addEventListener('focusout',schedule);
+ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!panel.hidden&&!document.querySelector('dialog[open]')){const focused=panel.contains(document.activeElement);hide();if(focused)document.getElementById('addBag').focus();}});
+ window.azuriBagNotice={hide,show(product,size){
+  clearTimeout(timer);
+  image.src=product.image;image.alt=(product.product_name||'Élan')+' in '+product.color;
+  name.textContent=(product.product_name||'Élan')+' · '+product.color;
+  details.textContent='TT$'+Number(product.price).toLocaleString('en-TT',{minimumFractionDigits:2,maximumFractionDigits:2})+' · Size '+size;
+  panel.hidden=false;schedule();
+ }};
+})();
