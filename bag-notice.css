@@ -1,4 +1,4 @@
-.azuri-bag-notice{position:fixed;z-index:30;top:70px;left:50%;transform:translateX(-50%);width:min(430px,calc(100vw - 24px));background:rgba(71,44,30,.97);color:#f8f5ee;border:1px solid #f8f5ee35;box-shadow:0 15px 45px #241a1533;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);animation:bag-notice-in .25s ease both}
+.azuri-bag-notice{position:fixed;inset:auto;margin:0;padding:0;box-sizing:border-box;max-height:calc(100dvh - 92px);overflow:auto;z-index:30;top:70px;left:50%;transform:translateX(-50%);width:min(430px,calc(100vw - 24px));background:rgba(71,44,30,.97);color:#f8f5ee;border:1px solid #f8f5ee35;box-shadow:0 15px 45px #241a1533;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);animation:bag-notice-in .25s ease both}
 .azuri-bag-notice[hidden]{display:none}
 .azuri-bag-notice .bag-notice-content{position:relative;display:flex;align-items:center;gap:18px;padding:20px 44px 20px 22px}
 .azuri-bag-notice .bag-notice-image{display:block;width:58px;height:74px;flex:0 0 58px;object-fit:contain;background:#eee9df}
