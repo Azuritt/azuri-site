@@ -13,5 +13,5 @@ let r=run();assert.equal(r.cart[0].qty,1);assert.equal(r.saves,1);assert.equal(r
 r=run({qty:1});assert.equal(r.cart[0].qty,2);assert.equal(r.shows,1);
 r=run({stock:0});assert.equal(r.saves,0);assert.equal(r.shows,0);assert.equal(r.warnings,1);
 r=run({qty:60,stock:100});assert.equal(r.saves,0);assert.equal(r.shows,0);
-r=run({popup:false});assert.equal(r.opens,1);assert.equal(r.saves,1);
-console.log('PASS: successful add and repeat add show notice; stock and quantity limits block notice; bag drawer remains fallback.');
+r=run({popup:false});assert.equal(r.opens,0);assert.equal(r.saves,1);assert.equal(r.warnings,1);
+console.log('PASS: additions show notice; stock limits block invalid adds; missing notification script never auto-opens bag.');
