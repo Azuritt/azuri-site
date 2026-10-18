@@ -10,10 +10,9 @@ body:not(.admin-page)>header.azuri-header #bag{grid-column:3;grid-row:1;justify-
 body:not(.admin-page)>header.azuri-header #bag svg{width:21px;height:23px;flex:none}
 body:not(.admin-page)>header.azuri-header #count{margin:0;min-width:10px;text-align:center}
 .azuri-header button:focus-visible,.azuri-header a:focus-visible{outline:1px solid #472c1e;outline-offset:3px}
-body.lux-home>header.azuri-header{position:fixed;left:0;right:0;width:100%;box-sizing:border-box;background:transparent;color:#f8f5ee;border-bottom-color:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;transition:background .35s,color .35s,border-color .35s,backdrop-filter .35s}
-body.lux-home:not(.lux-scrolled)>header.azuri-header .brand img{filter:brightness(0) invert(1)}
+body.lux-home>header.azuri-header{position:sticky;top:0;width:100%;box-sizing:border-box;background:transparent;color:#472c1e;border-bottom-color:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;transition:background .35s,color .35s,border-color .35s,backdrop-filter .35s}
 body.lux-home.lux-scrolled>header.azuri-header{background:rgba(248,245,238,.76);color:#472c1e;border-bottom-color:#472c1e12;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 3px 18px #241a1508}
-body.lux-home:not(.lux-scrolled)>header.azuri-header button:focus-visible,body.lux-home:not(.lux-scrolled)>header.azuri-header a:focus-visible{outline-color:#f8f5ee}
+body.lux-home:not(.lux-scrolled)>header.azuri-header button:focus-visible,body.lux-home:not(.lux-scrolled)>header.azuri-header a:focus-visible{outline-color:#472c1e}
 body.menu-open{overflow:hidden}
 dialog.azuri-menu{position:fixed;inset:0 auto 0 0;margin:0;width:min(380px,88vw);max-width:none;height:100%;height:100dvh;max-height:none;padding:26px 32px 32px;border:0;background:#f8f5ee;color:#472c1e;box-sizing:border-box;box-shadow:12px 0 50px #241a1526}
 dialog.azuri-menu[open]{display:flex;flex-direction:column;animation:azuri-menu-in .3s ease both}
@@ -46,7 +45,7 @@ html{scroll-padding-top:78px}
  body:not(.admin-page)>header.azuri-header .brand img{width:116px;height:40px}
  body:not(.admin-page)>header.azuri-header .azuri-menu-toggle{gap:8px;font-size:9px;letter-spacing:.08em}
  body:not(.admin-page)>header.azuri-header #bag{gap:6px;font-size:9px}
- .lux-home .hero{height:100svh;min-height:0}
+ .lux-home .hero{height:calc(100svh - 60px);min-height:0}
  .lux-home .hero>picture{position:absolute;inset:0}
  .lux-home .hero>picture>img{height:100%;object-fit:cover;object-position:60% 0}
  .lux-home .hero .hero-text{padding:0 6% 34px}
