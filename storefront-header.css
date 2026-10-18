@@ -9,7 +9,7 @@ body:not(.admin-page)>header.azuri-header #bag{grid-column:3;grid-row:1;justify-
 body:not(.admin-page)>header.azuri-header #bag svg{width:21px;height:23px;flex:none}
 body:not(.admin-page)>header.azuri-header #count{margin:0;min-width:10px;text-align:center}
 .azuri-header button:focus-visible,.azuri-header a:focus-visible{outline:1px solid #f8f5ee;outline-offset:3px}
-.delivery-announcement{border-bottom:1px solid #f8f5ee20}
+body.lux-home>header.azuri-header{position:relative}
 body.menu-open{overflow:hidden}
 dialog.azuri-menu{position:fixed;inset:0 auto 0 0;margin:0;width:min(380px,88vw);max-width:none;height:100%;height:100dvh;max-height:none;padding:26px 32px 32px;border:0;background:#f8f5ee;color:#472c1e;box-sizing:border-box;box-shadow:12px 0 50px #241a1526}
 dialog.azuri-menu[open]{display:flex;flex-direction:column;animation:azuri-menu-in .3s ease both}
@@ -23,9 +23,9 @@ dialog.azuri-menu nav a{display:block;padding:18px 0;margin:0;color:#472c1e;font
 dialog.azuri-menu nav a:hover{color:#84644c}
 .azuri-menu-signature{margin:auto 0 0;padding-top:32px;font:italic 19px/1.5 'Cormorant Garamond',Georgia,serif;color:#806853}
 .azuri-menu-signature small{display:block;margin-top:16px;font:8px/1.6 Inter,Arial,sans-serif;letter-spacing:.16em}
-.lux-home .hero{height:calc(100svh - 88px);min-height:540px;max-height:1100px;padding-bottom:0}
-.lux-home .hero>picture{position:absolute;inset:0}
-.lux-home .hero>picture>img{width:100%;height:100%;object-fit:cover;object-position:center;filter:none}
+.lux-home .hero{height:auto;min-height:0;max-height:none;padding-bottom:0}
+.lux-home .hero>picture{position:relative;inset:auto;display:block}
+.lux-home .hero>picture>img{display:block;width:100%;height:auto;object-fit:contain;object-position:center top;filter:none}
 .lux-home .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#241a1508 35%,#241a1533 72%,#241a1575);pointer-events:none}
 .lux-home .hero .hero-text{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:0 5% 60px;text-align:left;color:#fffaf1}
 .lux-home .hero .hero-text>.eyebrow,.lux-home .hero .hero-text>h1,.lux-home .hero .hero-text>p:not(.eyebrow){position:static;top:auto;left:auto;width:auto;max-width:550px;transform:none}
@@ -42,8 +42,9 @@ html{scroll-padding-top:78px}
  body:not(.admin-page)>header.azuri-header .brand img{width:110px;height:38px}
  body:not(.admin-page)>header.azuri-header .azuri-menu-toggle{gap:8px;font-size:9px;letter-spacing:.08em}
  body:not(.admin-page)>header.azuri-header #bag{gap:6px;font-size:9px}
- .lux-home .hero{height:calc(100svh - 84px);min-height:460px}
- .lux-home .hero>picture>img{object-position:60% 50%}
+ .lux-home .hero{height:calc(100svh - 56px);min-height:0}
+ .lux-home .hero>picture{position:absolute;inset:0}
+ .lux-home .hero>picture>img{height:100%;object-fit:cover;object-position:60% 0}
  .lux-home .hero .hero-text{padding:0 6% 34px}
  .lux-home .hero .hero-text>.eyebrow{font-size:8px;margin-bottom:12px}
  .lux-home .hero .hero-text>h1{font-size:clamp(34px,9vw,48px);max-width:300px;margin-bottom:10px}
