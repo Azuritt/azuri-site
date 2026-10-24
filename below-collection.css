@@ -1,0 +1,63 @@
+/* Homepage introduction, garment details and client care. */
+.lux-home #collection{padding-bottom:76px}
+.lux-home .story.azuri-intro{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:center;gap:12%;padding:72px 6% 80px;border-top:1px solid #472c1e20;max-width:1600px}
+.lux-home .story.azuri-intro>div{max-width:none;min-width:0}
+.lux-home .azuri-kicker{font:400 9px/1.6 Inter,Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#806853;margin:0 0 22px}
+.lux-home .story.azuri-intro h2{font:500 clamp(40px,4.8vw,64px)/1.06 'Cormorant Garamond',Georgia,serif;letter-spacing:-.025em;margin:0;color:#472c1e}
+.lux-home .story.azuri-intro h2::before{content:none}
+.lux-home .story.azuri-intro .azuri-intro-copy p{font:400 13px/1.95 Inter,Arial,sans-serif;color:#766555;margin:0;max-width:410px}
+.lux-home .story.azuri-intro .azuri-intro-copy p+p{margin-top:20px}
+.lux-home .azuri-details{background:#f1ece2;border-top:1px solid #472c1e16;border-bottom:1px solid #472c1e16;padding:34px 6% 42px;color:#472c1e}
+.lux-home .azuri-details-inner{max-width:1408px;margin:0 auto}
+.lux-home .azuri-details .azuri-kicker{margin:0 0 28px;font-size:8px}
+.lux-home .azuri-details-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:38px}
+.lux-home .azuri-details-grid article{padding-right:30px;min-width:0}
+.lux-home .azuri-details-grid article+article{border-left:1px solid #472c1e20;padding-left:38px}
+.lux-home .azuri-details h3{font:500 29px/1.15 'Cormorant Garamond',Georgia,serif;margin:0 0 12px;letter-spacing:-.015em}
+.lux-home .azuri-details p{font:400 12px/1.9 Inter,Arial,sans-serif;margin:0;color:#766555;max-width:340px}
+body.lux-home>footer.azuri-footer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:12%;row-gap:28px;padding:38px 6% 18px;background:#472c1e;color:#f8f5ee;text-align:left}
+body.lux-home>footer.azuri-footer .footer-brand{width:auto;max-width:100%;margin:0;text-align:left}
+body.lux-home>footer.azuri-footer .footer-logo{display:block;width:125px;height:auto;margin:0 0 12px}
+body.lux-home>footer.azuri-footer .footer-brand p{font:400 15px/1.5 'Cormorant Garamond',Georgia,serif;margin:0}
+body.lux-home>footer.azuri-footer .footer-brand .footer-motto{font-style:italic;font-size:16px;color:#d6c6b4;margin-top:2px}
+body.lux-home>footer.azuri-footer .azuri-client-care{border:0;padding:0;min-width:0;justify-self:end;width:max-content;max-width:100%}
+body.lux-home>footer.azuri-footer .azuri-client-care h2{font:400 8px/1.6 Inter,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#d6c6b4;margin:0 0 10px}
+body.lux-home>footer.azuri-footer .azuri-client-care a{font:400 10px/1.7 Inter,Arial,sans-serif;letter-spacing:0;margin:0 0 4px;min-height:28px;display:flex;align-items:center;max-width:100%;overflow-wrap:anywhere}
+body.lux-home>footer.azuri-footer .footer-bottom{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid #f8f5ee25;margin:0;padding-top:13px}
+body.lux-home>footer.azuri-footer .footer-bottom small{font:400 7px/1.8 Inter,Arial,sans-serif;letter-spacing:.12em;border:0;margin:0;padding:0}
+body.lux-home>footer.azuri-footer .footer-bottom .footer-socials{display:flex;align-items:center;justify-content:flex-end;gap:22px;width:auto;margin:0;padding:0;border:0}
+body.lux-home>footer.azuri-footer .footer-bottom .footer-socials a{font:400 9px/1.6 Inter,Arial,sans-serif;letter-spacing:.04em;min-height:36px;display:inline-flex;align-items:center;gap:7px;margin:0}
+body.lux-home>footer.azuri-footer .footer-bottom .footer-socials svg{width:15px;height:15px}
+body.lux-home>footer.azuri-footer a:focus-visible{outline-color:#f8f5ee}
+@media(max-width:750px){
+ .lux-home #collection{padding-bottom:46px}
+ .lux-home .story.azuri-intro{grid-template-columns:1fr;gap:25px;padding:42px 6% 46px}
+ .lux-home .story.azuri-intro h2{font-size:clamp(38px,10vw,48px);margin:0}
+ .lux-home .azuri-kicker{font-size:8px;margin-bottom:17px}
+ .lux-home .story.azuri-intro .azuri-intro-copy p{font-size:12px;line-height:1.9;max-width:440px}
+ .lux-home .story.azuri-intro .azuri-intro-copy p+p{margin-top:16px}
+ .lux-home .azuri-details{padding:27px 6% 30px}
+ .lux-home .azuri-details .azuri-kicker{margin-bottom:20px}
+ .lux-home .azuri-details-grid{grid-template-columns:1fr;gap:0}
+ .lux-home .azuri-details-grid article{padding:0 0 20px}
+ .lux-home .azuri-details-grid article+article{border-left:0;border-top:1px solid #472c1e18;padding:20px 0}
+ .lux-home .azuri-details-grid article:last-child{padding-bottom:0}
+ .lux-home .azuri-details h3{font-size:26px;margin-bottom:8px}
+ .lux-home .azuri-details p{max-width:460px;line-height:1.8}
+ body.lux-home>footer.azuri-footer{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:22px 18px;padding:29px 6% 14px}
+ body.lux-home>footer.azuri-footer .footer-logo{width:105px;margin-bottom:10px}
+ body.lux-home>footer.azuri-footer .footer-brand p{font-size:12px}
+ body.lux-home>footer.azuri-footer .footer-brand .footer-motto{font-size:13px}
+ body.lux-home>footer.azuri-footer .azuri-client-care{justify-self:stretch;width:auto}
+ body.lux-home>footer.azuri-footer .azuri-client-care h2{font-size:7px;margin-bottom:8px}
+ body.lux-home>footer.azuri-footer .azuri-client-care a{font-size:9px;min-height:30px}
+ body.lux-home>footer.azuri-footer .footer-bottom{gap:12px;padding-top:12px;flex-wrap:wrap}
+ body.lux-home>footer.azuri-footer .footer-bottom small{font-size:6px;letter-spacing:.08em}
+ body.lux-home>footer.azuri-footer .footer-bottom .footer-socials{gap:14px;margin-left:auto}
+ body.lux-home>footer.azuri-footer .footer-bottom .footer-socials a{font-size:8px;gap:5px;min-height:32px}
+ body.lux-home>footer.azuri-footer .footer-bottom .footer-socials svg{width:13px;height:13px}
+}
+@media(max-width:359px){
+ body.lux-home>footer.azuri-footer{grid-template-columns:1fr}
+ body.lux-home>footer.azuri-footer .azuri-client-care{justify-self:start}
+}
