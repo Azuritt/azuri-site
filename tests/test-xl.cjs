@@ -1,0 +1,15 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');
+const source=fs.readFileSync(__dirname+'/../app.js','utf8');
+const elements=Object.fromEntries(['productImage','productColor','productTitle','productPrice','colors','sizes','addBag','stockNote'].map(id=>[id,{innerHTML:'',textContent:''}]));
+const product={id:'ivory',color:'Ivory',price:500,image:'ivory.png',stock:{S:0,M:0,L:0,XL:0}};
+let notices=0;
+const c={products:[product],productId:'ivory',selectedSize:'XL',sizes:['S','M','L','XL'],connected:true,cart:[],document:{title:''},history:{replaceState(){}},$:id=>elements[id],money:n=>'TT$'+n,esc:String,saveBag(){},notify(){},window:{azuriBagNotice:{show(){notices++;}}}};
+vm.createContext(c);
+const start=source.indexOf('function renderProduct()'),end=source.indexOf('\nfunction renderProducts()',start);
+vm.runInContext(source.slice(start,end),c);
+c.renderProduct();
+assert.match(elements.sizes.innerHTML,/data-size="XL"/);assert.equal((elements.sizes.innerHTML.match(/data-size=/g)||[]).length,4);assert.equal(elements.addBag.disabled,true);
+product.stock.XL=1;c.renderProduct();assert.equal(elements.addBag.disabled,false);
+elements.addBag.onclick();assert.equal(c.cart[0].size,'XL');assert.equal(c.cart[0].qty,1);assert.equal(notices,1);
+elements.addBag.onclick();assert.equal(c.cart[0].qty,1);assert.equal(notices,1);
+console.log('PASS: XL visible, unavailable without stock, purchasable with stock and protected against excess quantities.');
