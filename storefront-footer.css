@@ -1,0 +1,31 @@
+/* Shared storefront footer: client care and direct contact. */
+body:not(.admin-page)>footer.store-footer{display:block;background:#472c1e;color:#f8f5ee;padding:38px 6% 16px;text-align:left}
+body:not(.admin-page)>footer.store-footer .store-footer-inner{max-width:1280px;margin:0 auto}
+body:not(.admin-page)>footer.store-footer .store-footer-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12%;padding-bottom:25px}
+body:not(.admin-page)>footer.store-footer .store-care,body:not(.admin-page)>footer.store-footer .store-contact{padding:0;margin:0;min-width:0;border:0}
+body:not(.admin-page)>footer.store-footer .store-footer-title{font:400 10px/1.6 Inter,Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#d6c6b4;margin:0 0 12px}
+body:not(.admin-page)>footer.store-footer .store-care-links{display:flex;flex-direction:column;align-items:flex-start;gap:0}
+body:not(.admin-page)>footer.store-footer .store-care-links a,body:not(.admin-page)>footer.store-footer .store-contact>a{display:flex;align-items:center;width:fit-content;max-width:100%;min-height:32px;padding:3px 0;margin:0;font:400 11px/1.8 Inter,Arial,sans-serif;letter-spacing:0;text-transform:none;color:#f8f5ee;text-decoration:none;overflow-wrap:anywhere}
+body:not(.admin-page)>footer.store-footer .store-care-links a:hover,body:not(.admin-page)>footer.store-footer .store-contact>a:hover{color:#d6b992;text-decoration:underline;text-underline-offset:4px}
+body:not(.admin-page)>footer.store-footer .store-care-links a[aria-current="page"]{text-decoration:underline;text-underline-offset:4px}
+body:not(.admin-page)>footer.store-footer .store-footer-base{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px 24px;padding:12px 0 0;border-top:1px solid #f8f5ee25;margin:0}
+body:not(.admin-page)>footer.store-footer .store-footer-base small{font:400 7px/1.8 Inter,Arial,sans-serif;letter-spacing:.12em;border:0;padding:0;margin:0}
+body:not(.admin-page)>footer.store-footer .footer-socials{display:flex;align-items:center;justify-content:flex-end;gap:24px;grid-column:auto;justify-self:auto;width:auto;padding:0;margin:0 0 0 auto;border:0}
+body:not(.admin-page)>footer.store-footer .footer-socials a{display:inline-flex;align-items:center;gap:7px;width:auto;min-height:34px;margin:0;padding:0;font:400 9px/1.6 Inter,Arial,sans-serif;letter-spacing:.04em;color:#f8f5ee}
+body:not(.admin-page)>footer.store-footer .footer-socials a:hover{color:#d6b992}
+body:not(.admin-page)>footer.store-footer .footer-socials svg{width:15px;height:15px;flex:none}
+body:not(.admin-page)>footer.store-footer a:focus-visible{outline:1px solid #f8f5ee;outline-offset:4px}
+@media(max-width:750px){
+ body:not(.admin-page)>footer.store-footer{padding:29px 6% 13px}
+ body:not(.admin-page)>footer.store-footer .store-footer-grid{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:20px;padding-bottom:21px}
+ body:not(.admin-page)>footer.store-footer .store-footer-title{font-size:9px;margin-bottom:10px;letter-spacing:.12em}
+ body:not(.admin-page)>footer.store-footer .store-care-links a,body:not(.admin-page)>footer.store-footer .store-contact>a{font-size:10px;min-height:34px}
+ body:not(.admin-page)>footer.store-footer .store-footer-base{gap:8px 12px;padding-top:10px}
+ body:not(.admin-page)>footer.store-footer .store-footer-base small{font-size:6px;letter-spacing:.08em}
+ body:not(.admin-page)>footer.store-footer .footer-socials{gap:14px}
+ body:not(.admin-page)>footer.store-footer .footer-socials a{font-size:8px;gap:5px;min-height:32px}
+ body:not(.admin-page)>footer.store-footer .footer-socials svg{width:13px;height:13px}
+}
+@media(max-width:359px){
+ body:not(.admin-page)>footer.store-footer .store-footer-grid{grid-template-columns:1fr;gap:22px}
+}
