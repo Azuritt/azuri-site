@@ -1,0 +1,91 @@
+/* Client care pages and shared footer policy links. */
+body:not(.admin-page)>footer .footer-policy-links{grid-column:1/-1;display:flex;align-items:center;justify-content:flex-start;flex-wrap:wrap;gap:8px 28px;border-top:1px solid #f8f5ee25;padding:10px 0 0;margin:0}
+body:not(.admin-page)>footer .footer-policy-links a{display:inline-flex;align-items:center;min-height:36px;margin:0;width:auto;font:400 10px/1.6 Inter,Arial,sans-serif;letter-spacing:.025em;text-transform:none}
+body:not(.admin-page)>footer.has-footer-policies .footer-bottom{border-top:0;padding-top:0;margin-top:0}
+body.lux-home>footer.azuri-footer.has-footer-policies{row-gap:16px}
+.client-care-body{background:#f8f5ee;color:#472c1e}
+.care-shell{max-width:1280px;margin:0 auto;padding:30px 6% 85px}
+.care-back{font:400 10px/1.6 Inter,Arial,sans-serif;color:#806853;display:inline-block;padding:8px 0;text-decoration:underline;text-underline-offset:4px}
+.care-layout{display:grid;grid-template-columns:205px minmax(0,1fr);gap:8%;align-items:start;margin-top:42px}
+.care-sidebar{position:sticky;top:92px}
+.care-sidebar>p,.care-eyebrow{font:400 9px/1.7 Inter,Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#806853;margin:0 0 20px}
+.care-navigation{display:flex;flex-direction:column;gap:0;border-top:1px solid #472c1e22}
+.care-navigation a{font:400 11px/1.6 Inter,Arial,sans-serif;text-transform:none;letter-spacing:0;padding:15px 0;border-bottom:1px solid #472c1e18;color:#766555}
+.care-navigation a[aria-current="page"]{color:#472c1e;font-weight:500}
+.care-navigation a:hover{color:#472c1e;text-decoration:underline;text-underline-offset:4px}
+.care-document{min-width:0;max-width:770px}
+.care-document .care-heading{display:block;position:static;height:auto;min-height:0;padding:0 0 28px;margin:0 0 28px;border:0;border-bottom:1px solid #472c1e22;background:transparent}
+.care-heading .care-eyebrow{margin-bottom:16px}
+.care-document h1{font:500 clamp(42px,5vw,62px)/1.04 'Cormorant Garamond',Georgia,serif;letter-spacing:-.025em;margin:0 0 18px;color:#472c1e}
+.care-document .care-date{font:400 10px/1.7 Inter,Arial,sans-serif;color:#806853;margin:0 0 22px}
+.care-document .care-intro{font:400 14px/1.9 Inter,Arial,sans-serif;color:#766555;margin:0;max-width:630px}
+.care-section{margin:0 0 34px;scroll-margin-top:90px}
+.care-document h2{font:500 30px/1.15 'Cormorant Garamond',Georgia,serif;letter-spacing:-.01em;margin:0 0 15px}
+.care-section p,.care-section li,.care-faq p,.care-contact-panel p{font:400 13px/1.95 Inter,Arial,sans-serif;color:#66564a;overflow-wrap:anywhere}
+.care-section p{margin:0 0 15px}
+.care-section p:last-child{margin-bottom:0}
+.care-section ul{padding-left:20px;margin:0 0 18px}
+.care-section li{padding-left:3px;margin-bottom:12px}
+.care-section strong{font-weight:500;color:#472c1e}
+.care-document a{color:#472c1e;text-decoration:underline;text-underline-offset:3px}
+.care-faq details{border-top:0;border-bottom:1px solid #472c1e20;padding:0}
+.care-faq summary{position:relative;display:block;list-style:none;padding:20px 32px 20px 0;font:400 13px/1.65 Inter,Arial,sans-serif;color:#472c1e;cursor:pointer}
+.care-faq summary::-webkit-details-marker{display:none}
+.care-faq summary::after{content:"+";position:absolute;right:2px;top:20px;font:400 20px/1.1 Inter,Arial,sans-serif;transition:transform .2s}
+.care-faq details[open]>summary::after{transform:rotate(45deg)}
+.care-faq details>div{padding:0 26px 20px 0}
+.care-faq p{margin:0}
+.care-contact-panel{margin-top:38px;padding:25px;background:#f1ece2;border:1px solid #472c1e16}
+.care-contact-panel h2{font-size:30px;margin-bottom:12px}
+.care-contact-panel p{margin:0}
+.care-skip{position:fixed;top:8px;left:8px;z-index:100;background:#f8f5ee;color:#472c1e;border:1px solid #472c1e;padding:12px 16px;transform:translateY(-160%)}
+.care-skip:focus{transform:none}
+.checkout-page .checkout-policy-notice,.review-policy-notice{font:400 11px/1.8 Inter,Arial,sans-serif;color:#766555;margin:18px 0}
+.checkout-policy-notice a,.review-policy-notice a{color:#472c1e;text-decoration:underline;text-underline-offset:3px}
+body.client-care-body>footer.azuri-footer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:12%;row-gap:16px;padding:38px 6% 18px;background:#472c1e;color:#f8f5ee;text-align:left}
+body.client-care-body>footer.azuri-footer .footer-brand{width:auto;max-width:100%;margin:0;text-align:left}
+body.client-care-body>footer.azuri-footer .footer-logo{display:block;width:125px;height:auto;margin:0 0 12px}
+body.client-care-body>footer.azuri-footer .footer-brand p{font:400 15px/1.5 'Cormorant Garamond',Georgia,serif;margin:0}
+body.client-care-body>footer.azuri-footer .footer-brand .footer-motto{font-style:italic;color:#d6c6b4;font-size:16px;margin-top:2px}
+body.client-care-body>footer.azuri-footer .azuri-client-care{border:0;padding:0;min-width:0;justify-self:end}
+body.client-care-body>footer.azuri-footer .azuri-client-care h2{font:400 8px/1.6 Inter,Arial,sans-serif;text-transform:uppercase;letter-spacing:.18em;color:#d6c6b4;margin:0 0 10px}
+body.client-care-body>footer.azuri-footer .azuri-client-care a{font:400 10px/1.7 Inter,Arial,sans-serif;letter-spacing:0;margin:0;min-height:30px;display:flex;align-items:center;max-width:100%;overflow-wrap:anywhere}
+body.client-care-body>footer.azuri-footer .footer-bottom{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:18px;border:0;padding:0;margin:0;flex-wrap:wrap}
+body.client-care-body>footer.azuri-footer .footer-bottom small{font:400 7px/1.8 Inter,Arial,sans-serif;letter-spacing:.12em;border:0;margin:0;padding:0}
+body.client-care-body>footer.azuri-footer .footer-socials{display:flex;align-items:center;justify-content:flex-end;gap:22px;width:auto;margin:0 0 0 auto;padding:0;border:0}
+body.client-care-body>footer.azuri-footer .footer-socials a{font:400 9px/1.6 Inter,Arial,sans-serif;letter-spacing:.04em;min-height:36px;display:inline-flex;align-items:center;gap:7px;margin:0}
+body.client-care-body>footer.azuri-footer .footer-socials svg{width:15px;height:15px}
+body.client-care-body>footer a:focus-visible{outline-color:#f8f5ee}
+@media(max-width:750px){
+ body:not(.admin-page)>footer .footer-policy-links{column-gap:20px;padding-top:8px}
+ body:not(.admin-page)>footer .footer-policy-links a{font-size:9px;min-height:36px}
+ .care-shell{padding:22px 6% 50px}
+ .care-layout{grid-template-columns:1fr;gap:30px;margin-top:24px}
+ .care-sidebar{position:static}
+ .care-sidebar>p{margin-bottom:10px;font-size:8px}
+ .care-navigation{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}
+ .care-navigation a{font-size:10px;padding:12px 0}
+ .care-document h1{font-size:clamp(38px,10vw,48px);overflow-wrap:normal}
+ .care-document .care-heading{padding-bottom:23px;margin-bottom:24px}
+ .care-document .care-intro{font-size:13px}
+ .care-section{margin-bottom:30px}
+ .care-document h2{font-size:28px}
+ .care-section p,.care-section li,.care-faq p,.care-contact-panel p{font-size:12px;line-height:1.95}
+ .care-faq summary{font-size:12px;padding-block:18px}
+ .care-faq summary::after{top:18px}
+ .care-faq details>div{padding-right:16px}
+ .care-contact-panel{padding:22px;margin-top:30px}
+ body.client-care-body>footer.azuri-footer{gap:16px 18px;padding:29px 6% 14px;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+ body.client-care-body>footer.azuri-footer .footer-logo{width:105px;margin-bottom:10px}
+ body.client-care-body>footer.azuri-footer .footer-brand p{font-size:12px}
+ body.client-care-body>footer.azuri-footer .footer-brand .footer-motto{font-size:13px}
+ body.client-care-body>footer.azuri-footer .azuri-client-care{justify-self:stretch}
+ body.client-care-body>footer.azuri-footer .azuri-client-care a{font-size:9px;min-height:30px}
+ body.client-care-body>footer.azuri-footer .footer-bottom small{font-size:6px;letter-spacing:.08em}
+ body.client-care-body>footer.azuri-footer .footer-socials{gap:14px}
+ body.client-care-body>footer.azuri-footer .footer-socials a{font-size:8px;gap:5px}
+ body.client-care-body>footer.azuri-footer .footer-socials svg{width:13px;height:13px}
+}
+@media(max-width:359px){body.client-care-body>footer.azuri-footer{grid-template-columns:1fr}body.client-care-body>footer.azuri-footer .azuri-client-care{justify-self:start}}
+@media(prefers-reduced-motion:reduce){.care-faq summary::after{transition:none}}
+@media print{.client-care-body>header,.client-care-body>footer,.care-sidebar,.care-back,.care-skip{display:none!important}.care-shell{padding:0;max-width:none}.care-layout{display:block;margin:0}.care-document{max-width:none}.care-document a{color:inherit}.care-document h1{font-size:30pt}.care-section{break-inside:avoid}.care-document .care-date{font-size:10pt}.care-section p,.care-section li{font-size:10pt}}
