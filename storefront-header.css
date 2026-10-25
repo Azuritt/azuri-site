@@ -39,11 +39,11 @@ dialog.azuri-menu nav a:hover{color:#84644c}
 .lux-home .hero .button.light:hover{background:#fffaf1;color:#472c1e}
 html{scroll-padding-top:78px}
 @keyframes azuri-menu-in{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:translateX(0)}}
-/* Keep the complete desktop campaign image within the viewport below the header. */
+/* Fill the desktop viewport below the header without side gutters. */
 @media(min-width:751px){
- .lux-home .hero{height:auto;max-height:calc(100vh - 64px);max-height:calc(100dvh - 64px);background:#241a15}
- .lux-home .hero>picture{position:relative;inset:auto;display:block}
- .lux-home .hero>picture>img{width:100%;height:auto;max-height:calc(100vh - 64px);max-height:calc(100dvh - 64px);object-fit:contain;object-position:center;animation:none}
+ .lux-home .hero{height:calc(100vh - 64px);height:calc(100dvh - 64px);max-height:none;background:#241a15}
+ .lux-home .hero>picture{position:absolute;inset:0;display:block;width:100%;height:100%}
+ .lux-home .hero>picture>img{display:block;width:100%;height:100%;max-height:none;object-fit:cover;object-position:center top;animation:none}
 }
 @media(max-width:750px){
  body:not(.admin-page)>header.azuri-header{height:60px;min-height:60px;grid-template-rows:60px;padding:0 5%;gap:12px}
