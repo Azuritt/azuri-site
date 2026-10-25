@@ -90,11 +90,12 @@ body.client-care-body>footer a:focus-visible{outline-color:#f8f5ee}
 @media(prefers-reduced-motion:reduce){.care-faq summary::after{transition:none}}
 @media print{.client-care-body>header,.client-care-body>footer,.care-sidebar,.care-back,.care-skip{display:none!important}.care-shell{padding:0;max-width:none}.care-layout{display:block;margin:0}.care-document{max-width:none}.care-document a{color:inherit}.care-document h1{font-size:30pt}.care-section{break-inside:avoid}.care-document .care-date{font-size:10pt}.care-section p,.care-section li{font-size:10pt}}
 
-/* Keep every Client Care link visible and pair the mobile columns deliberately. */
-.client-care-body .care-navigation a{display:block}
+/* Standalone Client Care links remain visible on every page. */
+.client-care-body .care-navigation [data-care-page]{display:block;visibility:visible}
 @media(max-width:750px){
- .client-care-body .care-navigation a[href="faq.html"]{grid-column:1;grid-row:1}
- .client-care-body .care-navigation a[href="privacy.html"]{grid-column:1;grid-row:2}
- .client-care-body .care-navigation a[href="terms.html"]{grid-column:2;grid-row:1}
- .client-care-body .care-navigation a[href="shipping.html"]{grid-column:2;grid-row:2}
+ .client-care-body .care-navigation{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 20px}
+ .client-care-body .care-navigation [data-care-page="faq"]{grid-column:1;grid-row:1}
+ .client-care-body .care-navigation [data-care-page="privacy"]{grid-column:1;grid-row:2}
+ .client-care-body .care-navigation [data-care-page="terms"]{grid-column:2;grid-row:1}
+ .client-care-body .care-navigation [data-care-page="shipping"]{grid-column:2;grid-row:2}
 }
