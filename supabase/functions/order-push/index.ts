@@ -2,7 +2,7 @@ import webpush from 'npm:web-push@3.6.7';
 
 const base = (Deno.env.get('SUPABASE_URL') || '').replace(/\/$/, '');
 const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
-const origins = new Set(['https://azuri.fit','https://www.azuri.fit']);
+const origins = new Set(['https://shopazuri.com','https://www.shopazuri.com']);
 const headers = {apikey:serviceKey,Authorization:'Bearer '+serviceKey,'Content-Type':'application/json'};
 async function db(path:string, method='GET', body?:unknown) {
  const response = await fetch(base+'/rest/v1/'+path,{method,headers,body:body===undefined?undefined:JSON.stringify(body)});
