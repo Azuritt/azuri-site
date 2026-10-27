@@ -26,6 +26,12 @@ vm.createContext(context);vm.runInContext(stripTypeScriptTypes(ts),context);
 async function invoke(body,headers={}){return handler(new Request('https://test/functions/v1/order-push',{method:'POST',headers:{'Content-Type':'application/json',...headers},body:JSON.stringify(body)}));}
 const admin={Authorization:'Bearer valid'};
 (async()=>{
+ for(const origin of ['https://shopazuri.com','https://www.shopazuri.com']) {
+  const response=await handler(new Request('https://test/functions/v1/order-push',{method:'OPTIONS',headers:{Origin:origin}}));
+  assert.equal(response.status,204);assert.equal(response.headers.get('Access-Control-Allow-Origin'),origin);
+  assert.equal((await invoke({action:'config'},{...admin,Origin:origin})).status,200);
+ }
+ assert.equal((await handler(new Request('https://test/functions/v1/order-push',{method:'OPTIONS',headers:{Origin:'https://example.invalid'}}))).status,403);
  assert.equal(context.validSubscription(subscription),true);
  for(const endpoint of ['http://web.push.apple.com/test','https://web.push.apple.com.evil.com/test','https://127.0.0.1/test','https://example.com/test','https://user:pass@web.push.apple.com/test'])assert.equal(context.validSubscription({...subscription,endpoint}),false);
  assert.equal((await invoke({action:'config'})).status,401);
