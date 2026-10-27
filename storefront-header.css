@@ -69,3 +69,12 @@ html{scroll-padding-top:78px}
  body:not(.admin-page)>header.azuri-header:hover{background:rgba(248,245,238,.52);border-bottom-color:#472c1e12;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 }
 body:not(.admin-page)>header.azuri-header:focus-within{background:rgba(248,245,238,.52);border-bottom-color:#472c1e12;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+
+/* Extend only the campaign image behind the header; preserve layout positions. */
+body.lux-home .hero{overflow:visible}
+@media(min-width:751px){
+ body.lux-home .hero>picture{top:-64px;bottom:0;height:calc(100% + 64px)}
+}
+@media(max-width:750px){
+ body.lux-home .hero>picture{top:-60px;bottom:0;height:calc(100% + 60px)}
+}
