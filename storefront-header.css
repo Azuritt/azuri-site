@@ -1,6 +1,6 @@
 /* Slim Azuri storefront navigation. */
-body:not(.admin-page)>header.azuri-header{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:1fr auto 1fr;grid-template-rows:64px;align-items:center;height:64px;min-height:64px;padding:0 3%;gap:16px;background:rgba(248,245,238,.98);color:#472c1e;border-bottom:1px solid #472c1e18;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:none;transition:background .3s,box-shadow .3s}
-body.lux-scrolled>header.azuri-header{background:#f8f5ee;box-shadow:0 3px 18px #241a150a}
+body:not(.admin-page)>header.azuri-header{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:1fr auto 1fr;grid-template-rows:64px;align-items:center;height:64px;min-height:64px;padding:0 3%;gap:16px;background:transparent;color:#472c1e;border-bottom:1px solid transparent;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;transition:background .35s,border-color .35s,backdrop-filter .35s,box-shadow .35s}
+body.lux-scrolled>header.azuri-header{background:transparent;box-shadow:none}
 body:not(.admin-page)>header.azuri-header .brand{grid-column:2;grid-row:1;display:flex;justify-content:center;align-items:center;width:132px;height:64px;margin:0;line-height:0}
 body:not(.admin-page)>header.azuri-header .brand img{display:block;width:132px;height:44px;object-fit:contain}
 body:not(.admin-page)>header.azuri-header .azuri-menu-toggle{grid-column:1;grid-row:1;justify-self:start;display:inline-flex;align-items:center;gap:12px;min-width:44px;min-height:44px;padding:0;border:0;color:inherit;font:400 10px/1 Inter,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase}
@@ -11,7 +11,7 @@ body:not(.admin-page)>header.azuri-header #bag svg{width:21px;height:23px;flex:n
 body:not(.admin-page)>header.azuri-header #count{margin:0;min-width:10px;text-align:center}
 .azuri-header button:focus-visible,.azuri-header a:focus-visible{outline:1px solid #472c1e;outline-offset:3px}
 body.lux-home>header.azuri-header{position:sticky;top:0;width:100%;box-sizing:border-box;background:transparent;color:#472c1e;border-bottom-color:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;transition:background .35s,color .35s,border-color .35s,backdrop-filter .35s}
-body.lux-home.lux-scrolled>header.azuri-header{background:rgba(248,245,238,.76);color:#472c1e;border-bottom-color:#472c1e12;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 3px 18px #241a1508}
+body.lux-home.lux-scrolled>header.azuri-header{background:transparent;color:#472c1e;border-bottom-color:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none}
 body.lux-home:not(.lux-scrolled)>header.azuri-header button:focus-visible,body.lux-home:not(.lux-scrolled)>header.azuri-header a:focus-visible{outline-color:#472c1e}
 body.menu-open{overflow:hidden}
 dialog.azuri-menu{position:fixed;inset:0 auto 0 0;margin:0;width:min(380px,88vw);max-width:none;height:100%;height:100dvh;max-height:none;padding:26px 32px 32px;border:0;background:#f8f5ee;color:#472c1e;box-sizing:border-box;box-shadow:12px 0 50px #241a1526}
@@ -62,3 +62,9 @@ html{scroll-padding-top:78px}
  dialog.azuri-menu{padding:22px 26px 28px}
 }
 @media(prefers-reduced-motion:reduce){dialog.azuri-menu[open]{animation:none}}
+
+/* A light frosted surface while interacting with the transparent header. */
+@media(hover:hover){
+ body:not(.admin-page)>header.azuri-header:hover{background:rgba(248,245,238,.52);border-bottom-color:#472c1e12;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+}
+body:not(.admin-page)>header.azuri-header:focus-within{background:rgba(248,245,238,.52);border-bottom-color:#472c1e12;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
