@@ -4,7 +4,7 @@ The order-push Supabase Edge Function handles administrator device enrollment, t
 
 ## Device setup
 
-Open https://azuri.fit/admin.html, sign in, and choose Enable on this device in Overview. Accept the browser prompt, then choose Send test notification. On iPhone/iPad, first use Safari Share > Add to Home Screen and open the installed Azuri Orders app. Repeat setup separately for each device. Sound follows operating-system notification, Focus and browser settings. Turning off alerts or signing out unsubscribes the current device.
+Open https://shopazuri.com/admin.html, sign in, and choose Enable on this device in Overview. Accept the browser prompt, then choose Send test notification. On iPhone/iPad, first use Safari Share > Add to Home Screen and open the installed Azuri Orders app. Repeat setup separately for each device. Sound follows operating-system notification, Focus and browser settings. Turning off alerts or signing out unsubscribes the current device.
 
 ## Backend
 
