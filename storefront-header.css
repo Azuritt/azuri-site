@@ -66,3 +66,9 @@ html{scroll-padding-top:78px}
 /* Preserve the supplied wordmark's transparent margins while fitting the header. */
 body:not(.admin-page)>header.azuri-header .brand img{width:180px;height:67.5px;max-width:none;flex-shrink:0}
 @media(max-width:750px){body:not(.admin-page)>header.azuri-header .brand img{width:158px;height:59.25px}}
+
+/* Match the header wordmark to the storefront espresso palette. */
+body:not(.admin-page)>header.azuri-header .brand{position:relative}
+body:not(.admin-page)>header.azuri-header .brand img{opacity:0}
+body:not(.admin-page)>header.azuri-header .brand::after{content:"";position:absolute;inset:0;background:#472c1e;-webkit-mask:url("assets/azuri-header-logo.png?v=2") center/180px 67.5px no-repeat;mask:url("assets/azuri-header-logo.png?v=2") center/180px 67.5px no-repeat;pointer-events:none}
+@media(max-width:750px){body:not(.admin-page)>header.azuri-header .brand::after{-webkit-mask-size:158px 59.25px;mask-size:158px 59.25px}}
