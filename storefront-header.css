@@ -72,3 +72,7 @@ body:not(.admin-page)>header.azuri-header .brand{position:relative}
 body:not(.admin-page)>header.azuri-header .brand img{opacity:0}
 body:not(.admin-page)>header.azuri-header .brand::after{content:"";position:absolute;inset:0;background:#472c1e;-webkit-mask:url("assets/azuri-header-logo.png?v=2") center/180px 67.5px no-repeat;mask:url("assets/azuri-header-logo.png?v=2") center/180px 67.5px no-repeat;pointer-events:none}
 @media(max-width:750px){body:not(.admin-page)>header.azuri-header .brand::after{-webkit-mask-size:158px 59.25px;mask-size:158px 59.25px}}
+
+/* Center the visible lettering, compensating for the source image's uneven margins. */
+body:not(.admin-page)>header.azuri-header .brand::after{-webkit-mask-position:calc(50% + 1.23px) calc(50% + 1.32px);mask-position:calc(50% + 1.23px) calc(50% + 1.32px)}
+@media(max-width:750px){body:not(.admin-page)>header.azuri-header .brand::after{-webkit-mask-position:calc(50% + 1.08px) calc(50% + 1.16px);mask-position:calc(50% + 1.08px) calc(50% + 1.16px)}}
