@@ -62,3 +62,7 @@ html{scroll-padding-top:78px}
  dialog.azuri-menu{padding:22px 26px 28px}
 }
 @media(prefers-reduced-motion:reduce){dialog.azuri-menu[open]{animation:none}}
+
+/* Preserve the supplied wordmark's transparent margins while fitting the header. */
+body:not(.admin-page)>header.azuri-header .brand img{width:180px;height:67.5px;max-width:none;flex-shrink:0}
+@media(max-width:750px){body:not(.admin-page)>header.azuri-header .brand img{width:158px;height:59.25px}}
