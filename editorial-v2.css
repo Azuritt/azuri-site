@@ -1,0 +1,40 @@
+/* Azuri — Editorial V2. Isolated to experimental branch. */
+:root{--paper:#f7f5f0;--ink:#352c25;--line:#dedbd4;--muted:#827b73}
+html{scroll-behavior:smooth}body.lux-home{background:#f7f5f0;color:#352c25;-webkit-font-smoothing:antialiased}
+.lux-home .azuri-header{background:#f7f5f0!important;border-bottom:1px solid #e5e0d8!important;box-shadow:none!important}
+.lux-home .hero{height:auto!important;min-height:0!important;background:#f7f5f0!important;display:grid!important;grid-template-columns:45% 55%;align-items:stretch;overflow:hidden;isolation:isolate}
+.lux-home .hero:after{display:none!important}
+.lux-home .hero>picture{grid-column:2;grid-row:1;position:relative!important;inset:auto!important;display:block!important;min-height:680px;height:calc(100svh - 76px)!important;max-height:960px;overflow:hidden}
+.lux-home .hero>picture>img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:57% center!important;filter:none!important}
+.lux-home .hero .hero-text{grid-column:1;grid-row:1;position:relative!important;inset:auto!important;left:auto!important;top:auto!important;bottom:auto!important;transform:none!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:flex-start!important;max-width:none!important;padding:70px clamp(28px,7vw,130px)!important;background:#f7f5f0!important;color:#352c25!important;text-align:left!important}
+.lux-home .hero .hero-text>.eyebrow{position:static!important;color:#746b61!important;font:500 10px/1.6 Inter,Arial,sans-serif!important;letter-spacing:.22em!important;margin:0 0 36px!important}
+.lux-home .hero .hero-text h1{position:static!important;color:#352c25!important;font:400 clamp(90px,11vw,180px)/.8 'Cormorant Garamond',Georgia,serif!important;letter-spacing:-.065em!important;text-shadow:none!important;margin:0 0 32px!important;max-width:none!important;width:auto!important}
+.lux-home .hero .hero-text .hero-subline{position:static!important;font:400 clamp(22px,2.5vw,36px)/1.2 'Cormorant Garamond',Georgia,serif!important;letter-spacing:0!important;color:#64594e!important;margin:0 0 60px!important;max-width:none!important;width:auto!important;text-shadow:none!important}
+.lux-home .hero .button.light{position:static!important;left:auto!important;bottom:auto!important;transform:none!important;display:inline-flex!important;align-items:center;gap:30px;background:transparent!important;border:0!important;border-bottom:1px solid #352c25!important;padding:0 0 12px!important;color:#352c25!important;font:500 10px Inter,Arial,sans-serif!important;letter-spacing:.16em!important;text-transform:uppercase}
+.lux-home .hero .button.light:hover{opacity:.6}
+.lux-home #collection{max-width:1500px!important;background:#f7f5f0!important;padding:100px clamp(24px,6vw,90px) 125px!important}
+.lux-home .editorial-label{display:flex;justify-content:space-between;gap:20px;padding-bottom:20px;border-bottom:1px solid #d9d2c9;margin-bottom:75px;color:#746b61;font:500 10px Inter,Arial,sans-serif;letter-spacing:.16em}
+.lux-home #collection .section-title{display:flex!important;justify-content:center!important;min-height:0!important;overflow:visible!important;background:none!important;background-image:none!important;box-shadow:none!important;padding:0!important;margin:0!important}
+.lux-home #collection .section-title:before,.lux-home #collection .section-title:after,.lux-home #collection .section-title h2:before,.lux-home #collection .section-title h2:after{display:none!important}
+.lux-home #collection .section-title h2{margin:0!important}
+.lux-home #collection .section-title h2 img{width:clamp(150px,18vw,260px)!important;height:auto!important;max-width:none!important;margin:0 auto!important;mix-blend-mode:multiply!important;filter:none!important}
+.lux-home .collection-intro{max-width:430px;text-align:center;margin:28px auto 62px;color:#81766a;font:400 13px/1.8 Inter,Arial,sans-serif}
+.lux-home #collection .products{gap:clamp(12px,2vw,30px)!important}
+.lux-home #collection .product-card img{background:#eeebe5!important;aspect-ratio:4/5!important}
+.lux-home #story{background:#ece7df!important;max-width:none!important;padding:clamp(80px,9vw,145px) clamp(24px,8vw,130px)!important}
+.lux-home #story h2{font-family:'Cormorant Garamond',Georgia,serif!important;font-size:clamp(48px,6vw,90px)!important;line-height:1!important}
+.lux-home .azuri-details{background:#f7f5f0!important}
+.lux-home .store-footer{background:#342820!important}
+@media(max-width:750px){
+.lux-home .hero{display:flex!important;flex-direction:column!important}
+.lux-home .hero>picture{order:1;min-height:0!important;height:55svh!important;max-height:680px!important;width:100%!important}
+.lux-home .hero>picture>img{object-position:60% center!important}
+.lux-home .hero .hero-text{order:2;padding:42px 7% 56px!important;min-height:290px!important}
+.lux-home .hero .hero-text>.eyebrow{margin-bottom:22px!important;font-size:9px!important}
+.lux-home .hero .hero-text h1{font-size:100px!important;margin:0 0 18px!important}
+.lux-home .hero .hero-text .hero-subline{font-size:27px!important;margin:0 0 35px!important}
+.lux-home #collection{padding:65px 6% 90px!important}
+.lux-home .editorial-label{font-size:8px;margin-bottom:45px}
+.lux-home .collection-intro{font-size:12px;margin:20px auto 42px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
