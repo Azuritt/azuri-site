@@ -1,0 +1,249 @@
+:root {
+  --paper: #faf7f0;
+  --ink: #38271e;
+  --line: #d9cec0;
+  --stone: #ede5d8;
+  --display: 'Cormorant Garamond', Georgia, serif;
+}
+
+body:not(.admin-page) > header.azuri-header,
+body.lux-home > header.azuri-header,
+body.lux-home.lux-scrolled > header.azuri-header {
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  box-shadow: none;
+}
+body > header.azuri-header .azuri-menu-toggle {
+  font-size: 11px;
+}
+dialog.azuri-menu {
+  background: var(--paper);
+}
+dialog.azuri-menu nav a {
+  font-size: clamp(28px, 6vw, 36px);
+}
+body .button {
+  border-radius: 0;
+  min-height: 44px;
+}
+
+.campaign {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  min-height: min(680px, calc(100svh - 64px));
+  background: var(--stone);
+}
+.campaign-copy {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  text-align: center;
+  padding: 42px 20px;
+}
+.campaign h1 {
+  margin: 0;
+  font: 400 clamp(94px, 12vw, 182px)/.85 var(--display);
+  letter-spacing: -.055em;
+}
+.campaign p {
+  margin: 25px 0 28px;
+  font: 400 12px/1.5 Inter, Arial, sans-serif;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+}
+.campaign .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink);
+  color: var(--paper);
+  border: 1px solid var(--ink);
+  padding: 10px 29px;
+}
+.campaign .button:hover {
+  background: transparent;
+  color: var(--ink);
+}
+.campaign-image {
+  display: block;
+  position: relative;
+  min-width: 0;
+}
+.campaign-image img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 64% center;
+}
+.lux-home #collection.editorial-collection {
+  max-width: 1520px;
+  padding: clamp(46px, 7vw, 105px) 5% clamp(55px, 8vw, 120px);
+  margin: 0 auto;
+}
+.collection-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px 24px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+}
+.collection-heading h2 {
+  font: 400 clamp(42px, 6vw, 66px)/1 var(--display);
+  margin: 0;
+}
+.collection-heading p {
+  margin: 0;
+  color: #6b5545;
+  font-size: 12px;
+}
+#collection .products {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 2.1vw, 34px);
+}
+#collection .products > a {
+  display: block;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+#collection .products img {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 5/6;
+  object-fit: contain;
+  background: #eee7dc;
+}
+#collection .products .product-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 3px 10px;
+  padding: 12px 0;
+  text-align: left;
+}
+#collection .product-meta h3 {
+  font: 500 clamp(23px, 3vw, 34px)/1 var(--display);
+  margin: 0 0 6px;
+}
+#collection .product-meta p, #collection .product-meta span {
+  font: 400 12px/1.5 Inter, Arial, sans-serif;
+  color: #6b5545;
+  margin: 0;
+}
+
+.product-page .product-section {
+  max-width: 1460px;
+  padding: clamp(24px, 5vw, 74px) 5% clamp(48px, 7vw, 100px);
+}
+.product-page .product-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(0, .82fr);
+  align-items: start;
+  gap: clamp(25px, 6vw, 100px);
+}
+.product-page .product-photo {
+  background: var(--stone);
+  border: 0;
+}
+.product-page .product-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.product-page .product-copy {
+  padding: clamp(0px, 2vw, 32px) 0 0;
+}
+.product-page .product-copy h1 {
+  font: 400 clamp(39px, 4.7vw, 70px)/.99 var(--display);
+  letter-spacing: -.025em;
+}
+.product-page .product-accordions {
+  border-color: var(--line);
+}
+.product-page .choices button {
+  border-radius: 0;
+  min-height: 44px;
+}
+
+.checkout-page .checkout-shell, .client-care-body .care-shell {
+  padding-top: clamp(26px, 5vw, 66px);
+}
+.checkout-page .checkout-intro h1, .client-care-body .care-document h1 {
+  font: 400 clamp(44px, 6vw, 82px)/1 var(--display);
+  letter-spacing: -.025em;
+}
+.checkout-page .checkout-step, .checkout-page .checkout-order {
+  box-shadow: none;
+  border-radius: 0;
+  border: 1px solid var(--line);
+}
+.checkout-page .checkout-step {
+  border-width: 1px 0 0;
+}
+.checkout-page .checkout-order, .care-document .care-contact-panel {
+  background: var(--stone);
+}
+.checkout-page input, .checkout-page select, .checkout-page textarea {
+  border-radius: 0;
+  min-height: 44px;
+}
+.client-care-body .care-navigation a {
+  font-size: 13px;
+}
+
+body:not(.admin-page)>footer.store-footer {
+  background: #37271f;
+  padding: clamp(35px, 6vw, 78px) 5% 20px;
+}
+body:not(.admin-page)>footer.store-footer .store-footer-title {
+  font: 500 27px/1.1 var(--display);
+  letter-spacing: 0;
+  text-transform: none;
+}
+body:not(.admin-page)>footer.store-footer .store-care-links a,
+body:not(.admin-page)>footer.store-footer .store-contact>a {
+  font-size: 12px;
+}
+
+@media (max-width: 750px) {
+  .product-page .product-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 650px) {
+  .campaign {
+    display: flex;
+    flex-direction: column-reverse;
+    min-height: 0;
+  }
+  .campaign-image {
+    aspect-ratio: 5/6;
+    max-height: 58svh;
+  }
+  .campaign-image img {
+    object-position: center top;
+  }
+  .campaign-copy {
+    padding: 24px 20px 30px;
+  }
+  .campaign h1 {
+    font-size: clamp(67px, 16vw, 94px);
+  }
+  .campaign p {
+    margin: 13px 0 17px;
+  }
+  #collection .products {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  #collection .product-meta p, #collection .product-meta span {
+    font-size: 11px;
+  }
+}
