@@ -74,12 +74,3 @@ html{scroll-padding-top:78px}
   box-shadow:0 6px 24px rgba(36,26,21,.06);
  }
 }
-
-/* Place navigation over the hero instead of reserving a white header strip. */
-body.lux-home>header.azuri-header{margin-bottom:-64px;z-index:30;background:transparent!important;border-bottom-color:transparent;}
-body.lux-home:not(.lux-scrolled)>header.azuri-header{box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;}
-body.lux-home .hero{height:100dvh;}
-@media(min-width:751px){body.lux-home .hero{height:100vh;height:100dvh;}}
-@media(max-width:750px){body.lux-home>header.azuri-header{margin-bottom:-60px;}body.lux-home .hero{height:100svh;}}
-@media(hover:hover){body.lux-home:not(.lux-scrolled)>header.azuri-header:hover,body.lux-home:not(.lux-scrolled)>header.azuri-header:focus-within{background:rgba(248,245,238,.62)!important;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 6px 24px rgba(36,26,21,.06);}}
-body.lux-home.lux-scrolled>header.azuri-header{background:rgba(248,245,238,.76)!important;}
