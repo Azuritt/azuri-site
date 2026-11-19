@@ -62,3 +62,15 @@ html{scroll-padding-top:78px}
  dialog.azuri-menu{padding:22px 26px 28px}
 }
 @media(prefers-reduced-motion:reduce){dialog.azuri-menu[open]{animation:none}}
+
+/* Transparent homepage navigation with a restrained frosted-glass hover. */
+@media (hover:hover){
+ body.lux-home:not(.lux-scrolled)>header.azuri-header:hover,
+ body.lux-home:not(.lux-scrolled)>header.azuri-header:focus-within{
+  background:rgba(248,245,238,.62);
+  border-bottom-color:rgba(71,44,30,.12);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  box-shadow:0 6px 24px rgba(36,26,21,.06);
+ }
+}
